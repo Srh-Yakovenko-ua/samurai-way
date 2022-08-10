@@ -5,14 +5,7 @@ function App() {
     return (
         <div>
             <Header/>
-            <div>
-                <ul>
-                    <li>css</li>
-                    <li>html</li>
-                    <li>js</li>
-                    <li>react</li>
-                </ul>
-            </div>
+            <Technologies/>
         </div>
     );
 }
@@ -24,10 +17,19 @@ function Header() {
             <a href={'#'}>News</a>
             <a href={'#'}>Message</a>
         </div>
-    )
+    );
 }
 
-
+function Technologies() {
+    return (
+        <ul>
+            <li>css</li>
+            <li>html</li>
+            <li>js</li>
+            <li>react</li>
+        </ul>
+    );
+}
 
 
 export default App;
