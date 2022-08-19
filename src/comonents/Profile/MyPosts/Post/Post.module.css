@@ -1,0 +1,7 @@
+.item {
+    color: sandybrown;
+}
+
+.item>img{
+    width: 40px;
+}
