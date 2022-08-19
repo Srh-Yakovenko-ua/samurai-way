@@ -1,12 +1,7 @@
 .content {
     grid-area: content;
-    background-color: blueviolet;
+    background-color: brown;
 }
 
-.item {
-color: green;
-}
 
-.item {
-    color : aquamarine;
-}
+
