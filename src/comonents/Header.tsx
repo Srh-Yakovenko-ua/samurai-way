@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Header = () => {
+export const Header = () => {
     return (
-        <div>
-            
-        </div>
+        <header className={'header'}>
+            <img
+                src="https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr"
+                alt="1"/>
+        </header>
     );
 };
-
-export default Header;
