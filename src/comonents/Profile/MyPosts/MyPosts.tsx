@@ -3,6 +3,7 @@ import s from './MyPost.module.css'
 import Post from './Post/Post';
 
 const MyPosts = () => {
+
     return (
         <>
             <div>
@@ -13,12 +14,8 @@ const MyPosts = () => {
                 </div>
             </div>
             <div className={s.posts}>
-         <Post/>
-         <Post/>
-         <Post/>
-         <Post/>
-         <Post/>
-
+                <Post message={'Hi,How are you?'}/>
+                <Post message={'It\'s my new post'}/>
             </div>
         </>
     );
