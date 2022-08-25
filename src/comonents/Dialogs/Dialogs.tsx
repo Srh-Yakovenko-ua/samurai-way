@@ -32,6 +32,7 @@ type DialogListType ={
     id : string
     name : string
 }
+
 const DialogList =  (props : DialogListType) => {
 
     return (
@@ -44,6 +45,7 @@ const DialogList =  (props : DialogListType) => {
 type MessageType ={
     message : string
 }
+
 const Message = (props : MessageType) =>{
     return(
         <div className={s.message}>{props.message}</div>
