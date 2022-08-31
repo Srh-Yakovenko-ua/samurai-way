@@ -11,7 +11,7 @@ export const Dialogs = () => {
         {id: 5, name: 'Viktor'},
         {id: 6, name: 'Valera'},
     ];
-    let dialogsElements = dialogsData
+    const dialogsElements = dialogsData
         .map((dialog) => <DialogList name={dialog.name} id={dialog.id}/>)
 
 
@@ -23,7 +23,7 @@ export const Dialogs = () => {
         {id: 5, message: 'YO'},
         {id: 6, message: 'YO'},
     ];
-    let messageElements = messagesData.map(message => <Message message={message.message}/>)
+    const messageElements = messagesData.map(message => <Message message={message.message}/>)
 
 
     return (
