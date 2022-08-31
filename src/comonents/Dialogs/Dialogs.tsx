@@ -11,6 +11,10 @@ export const Dialogs = () => {
         {id: 5, name: 'Viktor'},
         {id: 6, name: 'Valera'},
     ];
+    let dialogsElements = dialogsData
+        .map((dialog) => <DialogList name={dialog.name} id={dialog.id}/>)
+
+
     let messagesData = [
         {id: 1, message: 'Hello'},
         {id: 2, message: 'IT-LEARN'},
@@ -19,28 +23,18 @@ export const Dialogs = () => {
         {id: 5, message: 'YO'},
         {id: 6, message: 'YO'},
     ];
+    let messageElements = messagesData.map(message => <Message message={message.message}/>)
 
 
     return (
         <div>
-
             <div className={s.dialogs}>
                 <div className={s.dialogsList}>
-                    <DialogList name={dialogsData[0].name} id={dialogsData[0].id}/>
-                    <DialogList name={dialogsData[1].name} id={dialogsData[1].id}/>
-                    <DialogList name={dialogsData[2].name} id={dialogsData[2].id}/>
-                    <DialogList name={dialogsData[3].name} id={dialogsData[3].id}/>
-                    <DialogList name={dialogsData[4].name} id={dialogsData[4].id}/>
-                    <DialogList name={dialogsData[5].name} id={dialogsData[5].id}/>
+                    {dialogsElements}
                 </div>
 
                 <div className={s.messages}>
-                    <Message message={messagesData[0].message}/>
-                    <Message message={messagesData[1].message}/>
-                    <Message message={messagesData[2].message}/>
-                    <Message message={messagesData[3].message}/>
-                    <Message message={messagesData[4].message}/>
-                    <Message message={messagesData[5].message}/>
+                    {messageElements}
                 </div>
             </div>
 
