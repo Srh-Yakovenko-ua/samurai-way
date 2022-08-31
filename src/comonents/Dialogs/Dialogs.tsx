@@ -3,23 +3,44 @@ import s from './Dialogs.module.css'
 import {NavLink} from 'react-router-dom';
 
 export const Dialogs = () => {
+    let dialogsData = [
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Andrey'},
+        {id: 3, name: 'Sveta'},
+        {id: 4, name: 'Sasha'},
+        {id: 5, name: 'Viktor'},
+        {id: 6, name: 'Valera'},
+    ];
+    let messagesData = [
+        {id: 1, message: 'Hello'},
+        {id: 2, message: 'IT-LEARN'},
+        {id: 3, message: 'YO'},
+        {id: 4, message: 'YO'},
+        {id: 5, message: 'YO'},
+        {id: 6, message: 'YO'},
+    ];
+
+
     return (
         <div>
 
             <div className={s.dialogs}>
                 <div className={s.dialogsList}>
-                    <DialogList name={'Dimych'} id={'1'}/>
-                    <DialogList name={'Andrey'} id={'2'}/>
-                    <DialogList name={'Sveta'} id={'3'}/>
-                    <DialogList name={'Sasha'} id={'4'}/>
-                    <DialogList name={'Viktor'} id={'5'}/>
-                    <DialogList name={'Valera'} id={'6'}/>
+                    <DialogList name={dialogsData[0].name} id={dialogsData[0].id}/>
+                    <DialogList name={dialogsData[1].name} id={dialogsData[1].id}/>
+                    <DialogList name={dialogsData[2].name} id={dialogsData[2].id}/>
+                    <DialogList name={dialogsData[3].name} id={dialogsData[3].id}/>
+                    <DialogList name={dialogsData[4].name} id={dialogsData[4].id}/>
+                    <DialogList name={dialogsData[5].name} id={dialogsData[5].id}/>
                 </div>
 
                 <div className={s.messages}>
-                    <Message message={'Hello'}/>
-                    <Message message={'IT-LEARN'}/>
-                    <Message message={'YO'}/>
+                    <Message message={messagesData[0].message}/>
+                    <Message message={messagesData[1].message}/>
+                    <Message message={messagesData[2].message}/>
+                    <Message message={messagesData[3].message}/>
+                    <Message message={messagesData[4].message}/>
+                    <Message message={messagesData[5].message}/>
                 </div>
             </div>
 
@@ -28,12 +49,12 @@ export const Dialogs = () => {
 };
 
 
-type DialogListType ={
-    id : string
-    name : string
+type DialogListType = {
+    id: number
+    name: string
 }
 
-const DialogList =  (props : DialogListType) => {
+const DialogList = (props: DialogListType) => {
 
     return (
         <div className={s.dialog + ' ' + s.active}>
@@ -42,12 +63,12 @@ const DialogList =  (props : DialogListType) => {
     );
 }
 
-type MessageType ={
-    message : string
+type MessageType = {
+    message: string
 }
 
-const Message = (props : MessageType) =>{
-    return(
+const Message = (props: MessageType) => {
+    return (
         <div className={s.message}>{props.message}</div>
     )
 }
