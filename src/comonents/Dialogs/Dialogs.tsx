@@ -3,7 +3,8 @@ import s from './Dialogs.module.css'
 import {NavLink} from 'react-router-dom';
 
 export const Dialogs = () => {
-    let dialogsData = [
+
+    let dialogs = [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrey'},
         {id: 3, name: 'Sveta'},
@@ -11,11 +12,11 @@ export const Dialogs = () => {
         {id: 5, name: 'Viktor'},
         {id: 6, name: 'Valera'},
     ];
-    const dialogsElements = dialogsData
+    const dialogsElements = dialogs
         .map((dialog) => <DialogList name={dialog.name} id={dialog.id}/>)
 
 
-    let messagesData = [
+    let messages = [
         {id: 1, message: 'Hello'},
         {id: 2, message: 'IT-LEARN'},
         {id: 3, message: 'YO'},
@@ -23,7 +24,7 @@ export const Dialogs = () => {
         {id: 5, message: 'YO'},
         {id: 6, message: 'YO'},
     ];
-    const messageElements = messagesData.map(message => <Message message={message.message}/>)
+    const messageElements = messages.map(message => <Message message={message.message}/>)
 
 
     return (
@@ -32,7 +33,6 @@ export const Dialogs = () => {
                 <div className={s.dialogsList}>
                     {dialogsElements}
                 </div>
-
                 <div className={s.messages}>
                     {messageElements}
                 </div>
@@ -51,8 +51,8 @@ type DialogListType = {
 const DialogList = (props: DialogListType) => {
 
     return (
-        <div className={s.dialog + ' ' + s.active}>
-            <NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink>
+        <div className={s.dialogsList + ' ' + s.active}>
+            <NavLink className={s.color} activeClassName={s.active} to={`/dialogs/${props.id}`}>{props.name}</NavLink>
         </div>
     );
 }
@@ -63,6 +63,6 @@ type MessageType = {
 
 const Message = (props: MessageType) => {
     return (
-        <div className={s.message}>{props.message}</div>
+        <div className={s.messages}>{props.message}</div>
     )
 }

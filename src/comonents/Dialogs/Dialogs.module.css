@@ -4,15 +4,20 @@
 }
 
 .dialogsList {
-    padding: 10px;
+    padding: 5px;
 }
 
-.dialogsList .active {
-    color: gold;
+.dialogsList a.active {
+    color:burlywood;
+}
+
+.color{
+    color: white;
 }
 
 .messages {
-padding: 10px;
+    padding: 5px;
+    color: white;
 }
 
 .message {
