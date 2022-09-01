@@ -49,10 +49,10 @@ type DialogListType = {
 }
 
 const DialogList = (props: DialogListType) => {
-
+const path = `/dialogs/${props.id}`
     return (
         <div className={s.dialogsList + ' ' + s.active}>
-            <NavLink className={s.color} activeClassName={s.active} to={`/dialogs/${props.id}`}>{props.name}</NavLink>
+            <NavLink className={s.color} activeClassName={s.active} to={path}>{props.name}</NavLink>
         </div>
     );
 }
