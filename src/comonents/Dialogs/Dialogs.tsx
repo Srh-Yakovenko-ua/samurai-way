@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Dialogs.module.css'
-import {NavLink} from 'react-router-dom';
 import {DialogList} from './DialogItem/DialogsItem';
+import {Message} from './Message/Message';
 
 export const Dialogs = () => {
 
@@ -46,12 +46,3 @@ export const Dialogs = () => {
 
 
 
-type MessageType = {
-    message: string
-}
-
-const Message = (props: MessageType) => {
-    return (
-        <div className={s.messages}>{props.message}</div>
-    )
-}
