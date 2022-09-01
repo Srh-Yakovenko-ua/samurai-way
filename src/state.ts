@@ -7,7 +7,7 @@ export type DialogsType = {
     name: string
 }
 
-export let dialogs: Array<DialogsType> = [
+export const dialogs: Array<DialogsType> = [
     {id: 1, name: 'Dimych'},
     {id: 2, name: 'Andrey'},
     {id: 3, name: 'Sveta'},
@@ -20,7 +20,7 @@ export let dialogs: Array<DialogsType> = [
     id: number
     message: string
 }
-export let messages: Array<MessageType> = [
+export const messages: Array<MessageType> = [
     {id: 1, message: 'Hello'},
     {id: 2, message: 'IT-LEARN'},
     {id: 3, message: 'YO'},
@@ -34,7 +34,7 @@ export type PostsType = {
     message: string
     likesCount: number
 }
-export let posts: Array<PostsType> = [
+export const posts: Array<PostsType> = [
     {id: 1, message: 'Hi,How are you?', likesCount: 12},
     {id: 2, message: 'It\'s my new post', likesCount: 11},
 ];
