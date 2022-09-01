@@ -2,30 +2,21 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import {DialogList} from './DialogItem/DialogsItem';
 import {Message} from './Message/Message';
-
-export const Dialogs = () => {
-
-    let dialogs = [
-        {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Andrey'},
-        {id: 3, name: 'Sveta'},
-        {id: 4, name: 'Sasha'},
-        {id: 5, name: 'Viktor'},
-        {id: 6, name: 'Valera'},
-    ];
-    const dialogsElements = dialogs
-        .map((dialog) => <DialogList name={dialog.name} id={dialog.id}/>)
+import {MessageType} from '../../state';
 
 
-    let messages = [
-        {id: 1, message: 'Hello'},
-        {id: 2, message: 'IT-LEARN'},
-        {id: 3, message: 'YO'},
-        {id: 4, message: 'YO'},
-        {id: 5, message: 'YO'},
-        {id: 6, message: 'YO'},
-    ];
-    const messageElements = messages.map(message => <Message message={message.message}/>)
+
+
+type DialogsType = {
+    dialogs: Array<DialogsType>
+    messages: Array<MessageType>
+}
+
+export const Dialogs = (props: any) => {
+
+    const messageElements = props.messages.map((message: { message: string; }) => <Message message={message.message}/>)
+    const dialogsElements = props.dialogs
+        .map((dialog: { name: string; id: number; }) => <DialogList name={dialog.name} id={dialog.id}/>)
 
 
     return (

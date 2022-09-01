@@ -8,6 +8,9 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from './comonents/News/News';
 import {Music} from './comonents/Music/Music';
 import {Settings} from './comonents/Settings/Settings';
+import {dialogs} from './state';
+import {messages} from './state';
+import {posts} from './state';
 
 
 function App() {
@@ -17,8 +20,8 @@ function App() {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path={'/dialogs'} component={Dialogs}/>
-                    <Route path={'/profile'} component={Profile}/>
+                    <Route path={'/dialogs'} render={()=> <Dialogs dialogs={dialogs}  messages={messages}/>}/>
+                    <Route path={'/profile'} render={()=> <Profile posts={posts}/>}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
