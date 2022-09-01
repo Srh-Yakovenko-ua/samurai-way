@@ -2,21 +2,18 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import {DialogList} from './DialogItem/DialogsItem';
 import {Message} from './Message/Message';
-import {MessageType} from '../../state';
+import {DialogsType, MessageType} from '../../state';
 
-
-
-
-type DialogsType = {
+type PropsType = {
     dialogs: Array<DialogsType>
     messages: Array<MessageType>
 }
 
-export const Dialogs = (props: any) => {
+export const Dialogs = (props: PropsType) => {
 
-    const messageElements = props.messages.map((message: { message: string; }) => <Message message={message.message}/>)
+    const messageElements = props.messages.map((message) => <Message message={message.message}/>)
     const dialogsElements = props.dialogs
-        .map((dialog: { name: string; id: number; }) => <DialogList name={dialog.name} id={dialog.id}/>)
+        .map((dialog) => <DialogList name={dialog.name} id={dialog.id}/>)
 
 
     return (

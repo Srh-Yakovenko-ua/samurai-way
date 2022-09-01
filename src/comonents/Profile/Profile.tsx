@@ -1,11 +1,14 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
+import {PostsType} from '../../state';
 
 
+type PropsTypeProfile ={
+    posts : Array<PostsType>
+}
 
-
-export const Profile = (props : any) => {
+export const Profile = (props : PropsTypeProfile) => {
 
 
     return (
