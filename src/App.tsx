@@ -8,20 +8,23 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from './comonents/News/News';
 import {Music} from './comonents/Music/Music';
 import {Settings} from './comonents/Settings/Settings';
-import {dialogs} from './state';
-import {messages} from './state';
-import {posts} from './state';
+import {RootStateType} from './state';
 
 
-function App() {
+type AppPropsType = {
+    RootState: RootStateType
+}
+
+function App(props: AppPropsType) {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path={'/dialogs'} render={()=> <Dialogs dialogs={dialogs}  messages={messages}/>}/>
-                    <Route path={'/profile'} render={()=> <Profile posts={posts}/>}/>
+                    <Route path={'/dialogs'}
+                           render={() => <Dialogs dialogs={props.RootState.dialogsPage.dialogs} messages={props.RootState.dialogsPage.messages}/>}/>
+                    <Route path={'/profile'} render={() => <Profile posts={props.RootState.profilePage.posts}/>}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
