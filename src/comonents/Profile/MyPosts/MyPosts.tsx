@@ -1,25 +1,24 @@
-import React from 'react';
+import React, { useState} from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
 import {PostsType} from '../../../state';
 
 type MyPostsPropsType = {
     posts: Array<PostsType>
-    addPost : (postMessage: string) => void
+    addPost: (e: any) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
 
     const postsElement = props.posts.map((p) => <Post message={p.message} likesCount={p.likesCount}/>)
+    const [addChangeTextArea, setAddChangeTextArea] = useState('')
 
-    const newPostElement= React.createRef<HTMLTextAreaElement>()
+    const onChangeTextAreaHandler = (value: string) => {
+        setAddChangeTextArea(value)
+    }
 
     const addPost = () => {
-        const text = newPostElement.current?.value
-        if(text){
-            props.addPost(text)
-        }
-        console.log(text)
+        props.addPost(addChangeTextArea)
     }
 
     return (
@@ -28,7 +27,7 @@ const MyPosts = (props: MyPostsPropsType) => {
                 My posts
                 <div>
                     <div>
-                        <textarea ref={newPostElement}></textarea>
+                        <textarea onChange={(e) => onChangeTextAreaHandler(e.currentTarget.value)}></textarea>
                     </div>
                     <div>
                         <button onClick={addPost}>Add post</button>
