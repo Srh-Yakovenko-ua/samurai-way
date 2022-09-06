@@ -5,20 +5,21 @@ import {PostsType} from '../../../state';
 
 type MyPostsPropsType = {
     posts: Array<PostsType>
-    addPost: (e: any) => void
+    addPost: (addChangeTextArea: string) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
 
     const postsElement = props.posts.map((p) => <Post message={p.message} likesCount={p.likesCount}/>)
-    const [addChangeTextArea, setAddChangeTextArea] = useState('')
+    const [addTextArea, setAddTextArea] = useState('')
 
     const onChangeTextAreaHandler = (value: string) => {
-        setAddChangeTextArea(value)
+        setAddTextArea(value)
     }
 
     const addPost = () => {
-        props.addPost(addChangeTextArea)
+        props.addPost(addTextArea)
+        setAddTextArea('')
     }
 
     return (
@@ -27,7 +28,7 @@ const MyPosts = (props: MyPostsPropsType) => {
                 My posts
                 <div>
                     <div>
-                        <textarea onChange={(e) => onChangeTextAreaHandler(e.currentTarget.value)}></textarea>
+                        <textarea onChange={(e) => onChangeTextAreaHandler(e.currentTarget.value)} value={addTextArea}></textarea>
                     </div>
                     <div>
                         <button onClick={addPost}>Add post</button>
