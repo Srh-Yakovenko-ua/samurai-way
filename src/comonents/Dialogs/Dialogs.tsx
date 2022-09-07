@@ -12,10 +12,17 @@ type PropsType = {
 export const Dialogs = (props: PropsType) => {
 
     const messageElements = props.messages
-        .map((message) => <Message message={message.message}/>)
+        .map((message) => <Message
+            key={message.id}
+            message={message.message}
+        />)
 
     const dialogsElements = props.dialogs
-        .map((dialog) => <DialogList name={dialog.name} id={dialog.id}/>)
+        .map((dialog) => <DialogList
+            key={dialog.id}
+            name={dialog.name}
+            id={dialog.id}
+        />)
 
 
     return (

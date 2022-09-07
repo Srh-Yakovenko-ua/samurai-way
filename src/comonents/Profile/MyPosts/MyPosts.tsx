@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
 import {PostsType} from '../../../state';
@@ -9,9 +9,14 @@ type MyPostsPropsType = {
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
-
-    const postsElement = props.posts.map((p) => <Post message={p.message} likesCount={p.likesCount}/>)
     const [addTextArea, setAddTextArea] = useState('')
+
+    const postsElement = props.posts.map((p) => <Post
+        key={p.id}
+        message={p.message}
+        likesCount={p.likesCount}
+    />)
+
 
     const onChangeTextAreaHandler = (value: string) => {
         setAddTextArea(value)
@@ -28,7 +33,9 @@ const MyPosts = (props: MyPostsPropsType) => {
                 My posts
                 <div>
                     <div>
-                        <textarea onChange={(e) => onChangeTextAreaHandler(e.currentTarget.value)} value={addTextArea}></textarea>
+                        <textarea onChange={(e) => onChangeTextAreaHandler(e.currentTarget.value)}
+                                  value={addTextArea}>
+                        </textarea>
                     </div>
                     <div>
                         <button onClick={addPost}>Add post</button>

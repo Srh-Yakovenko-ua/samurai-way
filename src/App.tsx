@@ -28,7 +28,8 @@ function App(props: AppPropsType) {
                                dialogs={props.RootState.dialogsPage.dialogs}
                                messages={props.RootState.dialogsPage.messages}/>
                            }/>
-                    <Route path={'/profile'} render={() => <Profile posts={props.RootState.profilePage.posts} addPost={props.addPost}/>}/>
+                    <Route path={'/profile'} render={() => <Profile posts={props.RootState.profilePage.posts}
+                                                                    addPost={props.addPost} />}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>

@@ -1,3 +1,4 @@
+import {renderTree} from './renderTree';
 
 export type MessagesType = {
     id: number
@@ -40,7 +41,6 @@ export let state: RootStateType = {
             {id: 5, name: 'Viktor'},
             {id: 6, name: 'Valera'},
         ],
-
         messages: [
             {id: 1, message: 'Hello'},
             {id: 2, message: 'IT-LEARN'},
@@ -54,8 +54,10 @@ export let state: RootStateType = {
 }
 
 
-
-export const addPost = (postMessage : string)=> {
-    const newPost =  {id: 3, message: postMessage, likesCount: 0};
+export const addPost = (postMessage: string) => {
+    const newPost = {id: 3, message: postMessage, likesCount: 0};
     state.profilePage.posts.push(newPost);
+    renderTree(state)
 }
+console.log(state)
+
