@@ -3,8 +3,8 @@ import s from './Post.module.css';
 
 
 export type PostType = {
-    message : string
-    likesCount : number
+    message: string
+    likesCount: number
 }
 const Post = (props: PostType) => {
 

@@ -8,14 +8,14 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from './comonents/News/News';
 import {Music} from './comonents/Music/Music';
 import {Settings} from './comonents/Settings/Settings';
-import { changeNewText, RootStateType} from './state';
+import {changeNewText, RootStateType} from './state';
 
 
 type AppPropsType = {
     RootState: RootStateType
     addPost: (postMessage: string) => void
-    newPostText : string
-    changeNewText : (newText : string)=>void
+    newPostText: string
+    changeNewText: (newText: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -34,7 +34,7 @@ function App(props: AppPropsType) {
                                                                     addPost={props.addPost}
                                                                     newPostText={props.newPostText}
                                                                     changeNewText={changeNewText}
-                                                                   />}/>
+                    />}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>

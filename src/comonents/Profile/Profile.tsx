@@ -4,14 +4,14 @@ import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {changeNewText, PostsType} from '../../state';
 
 
-type PropsTypeProfile ={
-    posts : Array<PostsType>
+type PropsTypeProfile = {
+    posts: Array<PostsType>
     addPost: (postMessage: string) => void
-    newPostText : string
-    changeNewText: (newText : string)=> void
+    newPostText: string
+    changeNewText: (newText: string) => void
 }
 
-export const Profile = (props : PropsTypeProfile) => {
+export const Profile = (props: PropsTypeProfile) => {
 
 
     return (

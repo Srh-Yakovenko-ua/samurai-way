@@ -19,7 +19,7 @@ export type PostsType = {
 }
 export type ProfilePageType = {
     posts: Array<PostsType>
-    newPostText : string
+    newPostText: string
 }
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -28,7 +28,7 @@ export type RootStateType = {
 
 export let state: RootStateType = {
     profilePage: {
-        newPostText : '',
+        newPostText: '',
         posts: [
             {id: 1, message: 'Hi,How are you?', likesCount: 12},
             {id: 2, message: 'It\'s my new post', likesCount: 11},
@@ -63,7 +63,7 @@ export const addPost = (postMessage: string) => {
 }
 
 
-export const changeNewText = (newText : string) => {
+export const changeNewText = (newText: string) => {
     state.profilePage.newPostText = newText
     renderTree(state)
 }
