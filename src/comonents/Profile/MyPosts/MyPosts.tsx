@@ -8,7 +8,6 @@ type MyPostsPropsType = {
     addPost: (addChangeTextArea: string) => void
     newPostText: string
     changeNewText: (newText: string) => void
-
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -20,14 +19,12 @@ const MyPosts = (props: MyPostsPropsType) => {
         likesCount={p.likesCount}
     />)
 
-
-    const addPost = () => {
-        props.addPost(props.newPostText)
-    }
+    const addPost = () => props.addPost(props.newPostText)
 
     const onChangeTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeNewText(e.currentTarget.value)
     }
+
 
     return (
         <>

@@ -1,4 +1,6 @@
-import {renderTree} from './renderTree';
+let renderTree = (state: RootStateType) => {
+    console.log('change state')
+}
 
 export type MessagesType = {
     id: number
@@ -59,6 +61,7 @@ export let state: RootStateType = {
 export const addPost = (postMessage: string) => {
     const newPost = {id: 3, message: postMessage, likesCount: 0};
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
     renderTree(state)
 }
 
@@ -66,4 +69,8 @@ export const addPost = (postMessage: string) => {
 export const changeNewText = (newText: string) => {
     state.profilePage.newPostText = newText
     renderTree(state)
+}
+
+export const subscribe = (observer: (state: RootStateType) => void) => {
+    renderTree = observer
 }
