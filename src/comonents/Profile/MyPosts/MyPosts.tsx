@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
 import {PostsType} from '../../../state';
@@ -6,10 +6,13 @@ import {PostsType} from '../../../state';
 type MyPostsPropsType = {
     posts: Array<PostsType>
     addPost: (addChangeTextArea: string) => void
+    newPostText: string
+    changeNewText: (newText: string) => void
+
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
-    const [addTextArea, setAddTextArea] = useState('')
+
 
     const postsElement = props.posts.map((p) => <Post
         key={p.id}
@@ -18,13 +21,12 @@ const MyPosts = (props: MyPostsPropsType) => {
     />)
 
 
-    const onChangeTextAreaHandler = (value: string) => {
-        setAddTextArea(value)
+    const addPost = () => {
+        props.addPost(props.newPostText)
     }
 
-    const addPost = () => {
-        props.addPost(addTextArea)
-        setAddTextArea('')
+    const onChangeTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changeNewText(e.currentTarget.value)
     }
 
     return (
@@ -33,9 +35,8 @@ const MyPosts = (props: MyPostsPropsType) => {
                 My posts
                 <div>
                     <div>
-                        <textarea onChange={(e) => onChangeTextAreaHandler(e.currentTarget.value)}
-                                  value={addTextArea}>
-                        </textarea>
+                        <textarea onChange={onChangeTextAreaHandler}
+                                  value={props.newPostText}/>
                     </div>
                     <div>
                         <button onClick={addPost}>Add post</button>
