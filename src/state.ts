@@ -1,4 +1,4 @@
-let renderTree = (state: RootStateType) => {
+let renderTree = () => {
     console.log('change state')
 }
 
@@ -62,15 +62,15 @@ export const addPost = (postMessage: string) => {
     const newPost = {id: 3, message: postMessage, likesCount: 0};
     state.profilePage.posts.push(newPost);
     state.profilePage.newPostText = '';
-    renderTree(state)
+    renderTree()
 }
 
 
 export const changeNewText = (newText: string) => {
     state.profilePage.newPostText = newText
-    renderTree(state)
+    renderTree()
 }
 
-export const subscribe = (observer: (state: RootStateType) => void) => {
+export const subscribe = (observer: () => void) => {
     renderTree = observer
 }
