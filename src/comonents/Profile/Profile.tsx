@@ -1,7 +1,7 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import {changeNewText, PostsType} from '../../state';
+import { PostsType} from '../../state';
 
 
 type PropsTypeProfile = {
@@ -20,7 +20,7 @@ export const Profile = (props: PropsTypeProfile) => {
             <MyPosts posts={props.posts}
                      addPost={props.addPost}
                      newPostText={props.newPostText}
-                     changeNewText={changeNewText}/>
+                     changeNewText={props.changeNewText}/>
         </div>
     );
 };

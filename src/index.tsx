@@ -1,8 +1,8 @@
-import { subscribe} from './state';
+import {store} from './state';
 import React from 'react';
 import {renderTree} from './renderTree';
 
-subscribe(renderTree)
+store.subscribe(renderTree)
 renderTree()
 
 
