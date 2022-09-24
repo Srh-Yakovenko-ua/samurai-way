@@ -1,6 +1,4 @@
-let renderTree = () => {
-    console.log('change state')
-}
+import {renderTree} from './renderTree';
 
 export type MessagesType = {
     id: number
@@ -28,49 +26,71 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
 }
 
-export let state: RootStateType = {
-    profilePage: {
-        newPostText: '',
-        posts: [
-            {id: 1, message: 'Hi,How are you?', likesCount: 12},
-            {id: 2, message: 'It\'s my new post', likesCount: 11},
-        ],
+export type StoreType = {
+    _state: RootStateType
+    changeNewText: (newText: string) => void
+    addPost: (postMessage: string) => void
+    _renderTree: () => void
+    subscribe: (observer: () => void) => void
+    getState : ()=> RootStateType
+}
+
+export const store: StoreType = {
+    _state: {
+        profilePage: {
+            newPostText: '',
+            posts: [
+                {id: 1, message: 'Hi,How are you?', likesCount: 12},
+                {id: 2, message: 'It\'s my new post', likesCount: 11},
+            ],
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: 1, name: 'Dimych'},
+                {id: 2, name: 'Andrey'},
+                {id: 3, name: 'Sveta'},
+                {id: 4, name: 'Sasha'},
+                {id: 5, name: 'Viktor'},
+                {id: 6, name: 'Valera'},
+            ],
+            messages: [
+                {id: 1, message: 'Hello'},
+                {id: 2, message: 'IT-LEARN'},
+                {id: 3, message: 'YO'},
+                {id: 4, message: 'YO'},
+                {id: 5, message: 'YO'},
+                {id: 6, message: 'YO'},
+            ],
+        },
+
     },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: 'Dimych'},
-            {id: 2, name: 'Andrey'},
-            {id: 3, name: 'Sveta'},
-            {id: 4, name: 'Sasha'},
-            {id: 5, name: 'Viktor'},
-            {id: 6, name: 'Valera'},
-        ],
-        messages: [
-            {id: 1, message: 'Hello'},
-            {id: 2, message: 'IT-LEARN'},
-            {id: 3, message: 'YO'},
-            {id: 4, message: 'YO'},
-            {id: 5, message: 'YO'},
-            {id: 6, message: 'YO'},
-        ],
+    changeNewText(newText: string) {
+        this._state.profilePage.newPostText = newText
+        renderTree()
     },
-
+    addPost(postMessage: string) {
+        const newPost = {id: 3, message: postMessage, likesCount: 0};
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+        renderTree()
+    },
+    _renderTree() {
+        console.log('change state')
+    },
+    subscribe(observer: () => void) {
+        this._renderTree = observer
+    },
+    getState(){
+        return this._state
+    }
 }
 
 
-export const addPost = (postMessage: string) => {
-    const newPost = {id: 3, message: postMessage, likesCount: 0};
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    renderTree()
-}
 
 
-export const changeNewText = (newText: string) => {
-    state.profilePage.newPostText = newText
-    renderTree()
-}
 
-export const subscribe = (observer: () => void) => {
-    renderTree = observer
-}
+
+
+
+
+
