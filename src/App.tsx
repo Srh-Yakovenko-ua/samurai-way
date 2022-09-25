@@ -19,8 +19,7 @@ type AppPropsType = {
 }
 
 function App(props: AppPropsType) {
-    let state = props.store.getState()
-
+   // let state = props.store.getState()
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -33,9 +32,9 @@ function App(props: AppPropsType) {
                                messages={props.store._state.dialogsPage.messages}/>
                            }/>
                     <Route path={'/profile'} render={() => <Profile posts={props.store._state.profilePage.posts}
-                                                                    addPost={props.store.addPost.bind(props.store.addPost)}
+                                                                    addPost={props.store.addPost.bind(props.store)}
                                                                     newPostText={props.store._state.profilePage.newPostText}
-                                                                    changeNewText={props.store.changeNewText.bind(props.store.changeNewText)}
+                                                                    changeNewText={props.store.changeNewText.bind(props.store)}
                     />}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>

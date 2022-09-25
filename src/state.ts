@@ -1,5 +1,3 @@
-import {renderTree} from './renderTree';
-
 export type MessagesType = {
     id: number
     message: string
@@ -30,9 +28,9 @@ export type StoreType = {
     _state: RootStateType
     changeNewText: (newText: string) => void
     addPost: (postMessage: string) => void
-    _renderTree: () => void
+    _rerenderTree: () => void
     subscribe: (observer: () => void) => void
-    getState : ()=> RootStateType
+    getState: () => RootStateType
 }
 
 export const store: StoreType = {
@@ -64,23 +62,24 @@ export const store: StoreType = {
         },
 
     },
+    _rerenderTree() {
+        console.log('change state')
+    },
     changeNewText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        renderTree()
+        store._state.profilePage.newPostText = newText
+        this._rerenderTree()
     },
     addPost(postMessage: string) {
         const newPost = {id: 3, message: postMessage, likesCount: 0};
         this._state.profilePage.posts.push(newPost);
         this._state.profilePage.newPostText = '';
-        renderTree()
+        this._rerenderTree()
     },
-    _renderTree() {
-        console.log('change state')
-    },
+
     subscribe(observer: () => void) {
-        this._renderTree = observer
+        this._rerenderTree = observer
     },
-    getState(){
+    getState() {
         return this._state
     }
 }
