@@ -9,6 +9,7 @@ export type DialogsType = {
 export type DialogsPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
+    newMessageText: string
 }
 export type PostsType = {
     id: number
@@ -32,11 +33,15 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionsType) => void
 }
-export type ActionsType = ReturnType<typeof ActionCreatorAddPost> | ReturnType<typeof ActionCreatorChangeText>
+export type ActionsType = ReturnType<typeof ActionCreatorAddPost>
+    | ReturnType<typeof ActionCreatorChangeText>
+    | ReturnType<typeof sendMessageCreator>
+    | ReturnType<typeof updateNewMessageBodyCreator>
 
 const ADD_POST = 'ADD-POST'
 const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
-
+const NEW_MESSAGE_TEXT = 'NEW_MESSAGE_TEXT_BODY'
+const SEND_MESSAGE = 'SEND_MESSAGE'
 
 export const store: StoreType = {
     _state: {
@@ -48,6 +53,7 @@ export const store: StoreType = {
             ],
         },
         dialogsPage: {
+
             dialogs: [
                 {id: 1, name: 'Dimych'},
                 {id: 2, name: 'Andrey'},
@@ -64,6 +70,7 @@ export const store: StoreType = {
                 {id: 5, message: 'YO'},
                 {id: 6, message: 'YO'},
             ],
+            newMessageText: ''
         },
 
     },
@@ -96,6 +103,14 @@ export const store: StoreType = {
         } else if (action.type === 'CHANGE-NEW-TEXT') {
             store._state.profilePage.newPostText = action.newText
             this._rerenderTree()
+        } else if (action.type === 'NEW_MESSAGE_TEXT_BODY') {
+            this._state.dialogsPage.newMessageText = action.body
+            this._rerenderTree()
+        } else if (action.type === 'SEND_MESSAGE') {
+            const newMessages = {id: 7, message: action.newMessageTextBody}
+            this._state.dialogsPage.messages.push(newMessages)
+            this._state.dialogsPage.newMessageText = '';
+            this._rerenderTree()
         }
     }
 }
@@ -111,6 +126,17 @@ export const ActionCreatorChangeText = (newTextValue: string) => ({
     } as const
 )
 
+export const sendMessageCreator = (newMessageText: string) => ({
+        type: SEND_MESSAGE,
+        newMessageTextBody: newMessageText
+    } as const
+)
+export const updateNewMessageBodyCreator = (bodyText: string) => ({
+        type: NEW_MESSAGE_TEXT,
+        body: bodyText
+    } as const
+
+)
 
 
 
