@@ -7,7 +7,7 @@ import {ActionsType, PostsType} from '../../state';
 type PropsTypeProfile = {
     posts: Array<PostsType>
     newPostText: string
-    dispatch : (action : ActionsType) => void
+    dispatch: (action: ActionsType) => void
 
 }
 

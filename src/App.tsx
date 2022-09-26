@@ -8,7 +8,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from './comonents/News/News';
 import {Music} from './comonents/Music/Music';
 import {Settings} from './comonents/Settings/Settings';
-import { StoreType} from './state';
+import {StoreType} from './state';
 
 
 type AppPropsType = {
@@ -17,7 +17,7 @@ type AppPropsType = {
 }
 
 function App(props: AppPropsType) {
-  const state = props.store.getState()
+    const state = props.store.getState()
 
     return (
         <BrowserRouter>

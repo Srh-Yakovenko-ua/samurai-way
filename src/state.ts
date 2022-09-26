@@ -38,7 +38,6 @@ const ADD_POST = 'ADD-POST'
 const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
 
 
-
 export const store: StoreType = {
     _state: {
         profilePage: {
@@ -101,18 +100,16 @@ export const store: StoreType = {
     }
 }
 
-export const ActionCreatorAddPost = (newPostMessage: string) => {
-    return {
+export const ActionCreatorAddPost = (newPostMessage: string) => ({
         type: ADD_POST,
         postMessage: newPostMessage
     } as const
-}
-export const ActionCreatorChangeText = (newTextValue: string) => {
-    return {
+)
+export const ActionCreatorChangeText = (newTextValue: string) => ({
         type: CHANGE_NEW_TEXT,
         newText: newTextValue
     } as const
-}
+)
 
 
 

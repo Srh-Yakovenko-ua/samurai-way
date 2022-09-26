@@ -11,6 +11,3 @@ export const renderTree = () => {
 }
 
 
-// addPost={store.addPost}
-// newPostText={store._state.profilePage.newPostText}
-// changeNewText={store.changeNewText}

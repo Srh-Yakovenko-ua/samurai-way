@@ -25,7 +25,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     const onChangeTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newTextValue = e.currentTarget.value
-      props.dispatch(ActionCreatorChangeText(newTextValue))
+        props.dispatch(ActionCreatorChangeText(newTextValue))
     }
 
 
