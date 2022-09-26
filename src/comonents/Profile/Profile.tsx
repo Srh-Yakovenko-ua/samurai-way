@@ -1,14 +1,14 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import { PostsType} from '../../state';
+import {ActionsType, PostsType} from '../../state';
 
 
 type PropsTypeProfile = {
     posts: Array<PostsType>
-    addPost: (postMessage: string) => void
     newPostText: string
-    changeNewText: (newText: string) => void
+    dispatch : (action : ActionsType) => void
+
 }
 
 export const Profile = (props: PropsTypeProfile) => {
@@ -18,9 +18,9 @@ export const Profile = (props: PropsTypeProfile) => {
         <div>
             <ProfileInfo/>
             <MyPosts posts={props.posts}
-                     addPost={props.addPost}
                      newPostText={props.newPostText}
-                     changeNewText={props.changeNewText}/>
+                     dispatch={props.dispatch}/>
+
         </div>
     );
 };

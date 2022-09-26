@@ -1,13 +1,12 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
-import {PostsType} from '../../../state';
+import {ActionsType, PostsType} from '../../../state';
 
 type MyPostsPropsType = {
     posts: Array<PostsType>
-    addPost: (addChangeTextArea: string) => void
     newPostText: string
-    changeNewText: (newText: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -19,10 +18,13 @@ const MyPosts = (props: MyPostsPropsType) => {
         likesCount={p.likesCount}
     />)
 
-    const addPost = () => props.addPost(props.newPostText)
+    const addPost = () => {
+        props.dispatch({type: 'ADD-POST', postMessage: props.newPostText})
+    }
 
     const onChangeTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewText(e.currentTarget.value)
+        const value = e.currentTarget.value
+        props.dispatch({type: 'CHANGE-NEW-TEXT', newText: value})
     }
 
 

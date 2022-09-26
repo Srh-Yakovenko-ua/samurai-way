@@ -26,12 +26,27 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
-    changeNewText: (newText: string) => void
-    addPost: (postMessage: string) => void
+    // changeNewText: (newText: string) => void
+    // addPost: (postMessage: string) => void
     _rerenderTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
+    dispatch : (action : ActionsType) => void
 }
+
+
+type AddPostActionType = {
+    type : 'ADD-POST'
+    postMessage : string
+}
+type ChangeNewTextActionType = {
+    type : 'CHANGE-NEW-TEXT'
+    newText : string
+}
+export type ActionsType = AddPostActionType | ChangeNewTextActionType
+
+
+
 
 export const store: StoreType = {
     _state: {
@@ -65,26 +80,36 @@ export const store: StoreType = {
     _rerenderTree() {
         console.log('change state')
     },
-    changeNewText(newText: string) {
-        store._state.profilePage.newPostText = newText
-        this._rerenderTree()
-    },
-    addPost(postMessage: string) {
-        const newPost = {id: 3, message: postMessage, likesCount: 0};
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._rerenderTree()
-    },
+    // changeNewText(newText: string) {
+    //     store._state.profilePage.newPostText = newText
+    //     this._rerenderTree()
+    // },
+    // addPost(postMessage: string) {
+    //     const newPost = {id: 3, message: postMessage, likesCount: 0};
+    //     this._state.profilePage.posts.push(newPost);
+    //     this._state.profilePage.newPostText = '';
+    //     this._rerenderTree()
+    // },
 
     subscribe(observer: () => void) {
         this._rerenderTree = observer
     },
     getState() {
         return this._state
+    },
+    dispatch(action){
+        if(action.type === 'ADD-POST'){
+            const newPost = {id: 3, message: action.postMessage, likesCount: 0};
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._rerenderTree()
+        }
+        else if (action.type === 'CHANGE-NEW-TEXT'){
+            store._state.profilePage.newPostText = action.newText
+            this._rerenderTree()
+        }
     }
 }
-
-
 
 
 
