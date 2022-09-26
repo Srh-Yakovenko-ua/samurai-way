@@ -23,7 +23,6 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
-
 export type StoreType = {
     _state: RootStateType
     // changeNewText: (newText: string) => void
@@ -31,20 +30,12 @@ export type StoreType = {
     _rerenderTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
-    dispatch : (action : ActionsType) => void
+    dispatch: (action: ActionsType) => void
 }
+export type ActionsType = ReturnType<typeof ActionCreatorAddPost> | ReturnType<typeof ActionCreatorChangeText>
 
-
-type AddPostActionType = {
-    type : 'ADD-POST'
-    postMessage : string
-}
-type ChangeNewTextActionType = {
-    type : 'CHANGE-NEW-TEXT'
-    newText : string
-}
-export type ActionsType = AddPostActionType | ChangeNewTextActionType
-
+const ADD_POST = 'ADD-POST'
+const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
 
 
 
@@ -97,21 +88,31 @@ export const store: StoreType = {
     getState() {
         return this._state
     },
-    dispatch(action){
-        if(action.type === 'ADD-POST'){
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
             const newPost = {id: 3, message: action.postMessage, likesCount: 0};
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this._rerenderTree()
-        }
-        else if (action.type === 'CHANGE-NEW-TEXT'){
+        } else if (action.type === 'CHANGE-NEW-TEXT') {
             store._state.profilePage.newPostText = action.newText
             this._rerenderTree()
         }
     }
 }
 
-
+export const ActionCreatorAddPost = (newPostMessage: string) => {
+    return {
+        type: ADD_POST,
+        postMessage: newPostMessage
+    } as const
+}
+export const ActionCreatorChangeText = (newTextValue: string) => {
+    return {
+        type: CHANGE_NEW_TEXT,
+        newText: newTextValue
+    } as const
+}
 
 
 
