@@ -1,4 +1,4 @@
-import {ActionsType, ProfilePageType} from './state';
+import {ActionsType, ProfilePageType} from './store';
 
 const ADD_POST = 'ADD-POST'
 const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
