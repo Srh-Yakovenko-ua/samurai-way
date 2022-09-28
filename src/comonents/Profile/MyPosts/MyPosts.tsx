@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
-import {ActionCreatorAddPost, ActionCreatorChangeText, ActionsType, PostsType} from '../../../state';
+import {ActionCreatorAddPost, ActionCreatorChangeText, ActionsType, PostsType} from '../../../Redux/state';
 
 type MyPostsPropsType = {
     posts: Array<PostsType>
@@ -9,23 +9,22 @@ type MyPostsPropsType = {
     dispatch: (action: ActionsType) => void
 }
 
-const MyPosts = (props: MyPostsPropsType) => {
+const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+    const {posts, newPostText, dispatch} = props
 
-
-    const postsElement = props.posts.map((p) => <Post
+    const postsElement = posts.map((p) => <Post
         key={p.id}
         message={p.message}
         likesCount={p.likesCount}
     />)
 
     const addPost = () => {
-        const newPostMessage = props.newPostText
-        props.dispatch(ActionCreatorAddPost(newPostMessage))
+        dispatch(ActionCreatorAddPost(newPostText))
     }
 
     const onChangeTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newTextValue = e.currentTarget.value
-        props.dispatch(ActionCreatorChangeText(newTextValue))
+        dispatch(ActionCreatorChangeText(newTextValue))
     }
 
 
@@ -36,7 +35,7 @@ const MyPosts = (props: MyPostsPropsType) => {
                 <div>
                     <div>
                         <textarea onChange={onChangeTextAreaHandler}
-                                  value={props.newPostText}/>
+                                  value={newPostText}/>
                     </div>
                     <div>
                         <button onClick={addPost}>Add post</button>

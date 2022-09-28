@@ -1,4 +1,4 @@
-import {store} from './state';
+import {store} from './Redux/state';
 import ReactDOM from 'react-dom';
 import App from './App';
 import React from 'react';

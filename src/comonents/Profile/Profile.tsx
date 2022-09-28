@@ -1,7 +1,7 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import {ActionsType, PostsType} from '../../state';
+import {ActionsType, PostsType} from '../../Redux/state';
 
 
 type PropsTypeProfile = {
@@ -11,15 +11,15 @@ type PropsTypeProfile = {
 
 }
 
-export const Profile = (props: PropsTypeProfile) => {
-
+export const Profile: React.FC<PropsTypeProfile> = (props) => {
+    const {posts, newPostText, dispatch} = props
 
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.posts}
-                     newPostText={props.newPostText}
-                     dispatch={props.dispatch}/>
+            <MyPosts posts={posts}
+                     newPostText={newPostText}
+                     dispatch={dispatch}/>
 
         </div>
     );

@@ -8,11 +8,14 @@ type DialogListType = {
     name: string
 }
 
-export const DialogList = (props: DialogListType) => {
-    const path = `/dialogs/${props.id}`
+export const DialogList: React.FC<DialogListType> = (props) => {
+
+    const {id, name} = props
+    const path = `/dialogs/${id}`
+
     return (
         <div className={s.dialogsList + ' ' + s.active}>
-            <NavLink className={s.color} activeClassName={s.active} to={path}>{props.name}</NavLink>
+            <NavLink className={s.color} activeClassName={s.active} to={path}>{name}</NavLink>
         </div>
     );
 }

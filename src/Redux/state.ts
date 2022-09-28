@@ -74,7 +74,6 @@ export const store: StoreType = {
             newMessageText: ''
         },
         sidebar: {}
-
     },
     _rerenderTree() {
         console.log('change state')
