@@ -1,3 +1,6 @@
+import {profileReducers} from './profile-reducer';
+import {dialogsReducers} from './dialogs-reducer';
+
 export type MessagesType = {
     id: number
     message: string
@@ -23,11 +26,10 @@ export type ProfilePageType = {
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+    sidebar: {}
 }
 export type StoreType = {
     _state: RootStateType
-    // changeNewText: (newText: string) => void
-    // addPost: (postMessage: string) => void
     _rerenderTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
@@ -53,7 +55,6 @@ export const store: StoreType = {
             ],
         },
         dialogsPage: {
-
             dialogs: [
                 {id: 1, name: 'Dimych'},
                 {id: 2, name: 'Andrey'},
@@ -72,22 +73,12 @@ export const store: StoreType = {
             ],
             newMessageText: ''
         },
+        sidebar: {}
 
     },
     _rerenderTree() {
         console.log('change state')
     },
-    // changeNewText(newText: string) {
-    //     store._state.profilePage.newPostText = newText
-    //     this._rerenderTree()
-    // },
-    // addPost(postMessage: string) {
-    //     const newPost = {id: 3, message: postMessage, likesCount: 0};
-    //     this._state.profilePage.posts.push(newPost);
-    //     this._state.profilePage.newPostText = '';
-    //     this._rerenderTree()
-    // },
-
     subscribe(observer: () => void) {
         this._rerenderTree = observer
     },
@@ -95,23 +86,9 @@ export const store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPost = {id: 3, message: action.postMessage, likesCount: 0};
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._rerenderTree()
-        } else if (action.type === 'CHANGE-NEW-TEXT') {
-            store._state.profilePage.newPostText = action.newText
-            this._rerenderTree()
-        } else if (action.type === 'NEW_MESSAGE_TEXT_BODY') {
-            this._state.dialogsPage.newMessageText = action.body
-            this._rerenderTree()
-        } else if (action.type === 'SEND_MESSAGE') {
-            const newMessages = {id: 7, message: action.newMessageTextBody}
-            this._state.dialogsPage.messages.push(newMessages)
-            this._state.dialogsPage.newMessageText = '';
-            this._rerenderTree()
-        }
+        this._state.profilePage = profileReducers(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducers(this._state.dialogsPage, action)
+        this._rerenderTree()
     }
 }
 
