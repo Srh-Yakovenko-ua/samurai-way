@@ -2,14 +2,20 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogList} from './DialogItem/DialogsItem';
 import {Message} from './Message/Message';
-import {ActionsType, DialogsType, MessagesType,} from '../../Redux/store';
-import {sendMessageCreator, updateNewMessageBodyCreator} from '../../Redux/dialogs-reducer';
+//import {ActionsType, DialogsType, MessagesType,} from '../../Redux/store';
+import {
+    dialogsReducersActionType,
+    DialogsType,
+    MessagesType,
+    sendMessageCreator,
+    updateNewMessageBodyCreator
+} from '../../Redux/dialogs-reducer';
 
 type PropsType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessageText: string
-    dispatch: (action: ActionsType) => void
+    dispatch: (action: dialogsReducersActionType) => void
 }
 
 export const Dialogs: React.FC<PropsType> = (props) => {
