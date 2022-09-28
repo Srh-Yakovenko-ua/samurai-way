@@ -1,5 +1,5 @@
-import {profileReducers} from './profile-reducer';
-import {dialogsReducers} from './dialogs-reducer';
+import {ActionCreatorAddPost, ActionCreatorChangeText, profileReducers} from './profile-reducer';
+import {dialogsReducers, sendMessageCreator, updateNewMessageBodyCreator} from './dialogs-reducer';
 
 export type MessagesType = {
     id: number
@@ -40,10 +40,6 @@ export type ActionsType = ReturnType<typeof ActionCreatorAddPost>
     | ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof updateNewMessageBodyCreator>
 
-const ADD_POST = 'ADD-POST'
-const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
-const NEW_MESSAGE_TEXT = 'NEW_MESSAGE_TEXT_BODY'
-const SEND_MESSAGE = 'SEND_MESSAGE'
 
 export const store: StoreType = {
     _state: {
@@ -91,28 +87,7 @@ export const store: StoreType = {
     }
 }
 
-export const ActionCreatorAddPost = (newPostMessage: string) => ({
-        type: ADD_POST,
-        postMessage: newPostMessage
-    } as const
-)
-export const ActionCreatorChangeText = (newTextValue: string) => ({
-        type: CHANGE_NEW_TEXT,
-        newText: newTextValue
-    } as const
-)
 
-export const sendMessageCreator = (newMessageText: string) => ({
-        type: SEND_MESSAGE,
-        newMessageTextBody: newMessageText
-    } as const
-)
-export const updateNewMessageBodyCreator = (bodyText: string) => ({
-        type: NEW_MESSAGE_TEXT,
-        body: bodyText
-    } as const
-
-)
 
 
 

@@ -3,6 +3,18 @@ import {ActionsType, ProfilePageType} from './state';
 const ADD_POST = 'ADD-POST'
 const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
 
+export const ActionCreatorAddPost = (newPostMessage: string) => ({
+        type: ADD_POST,
+        postMessage: newPostMessage
+    } as const
+)
+export const ActionCreatorChangeText = (newTextValue: string) => ({
+        type: CHANGE_NEW_TEXT,
+        newText: newTextValue
+    } as const
+)
+
+
 export const profileReducers = (state: ProfilePageType, action: ActionsType) => {
 
     switch (action.type) {
@@ -19,3 +31,6 @@ export const profileReducers = (state: ProfilePageType, action: ActionsType) => 
         }
     }
 }
+
+
+
