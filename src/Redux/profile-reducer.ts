@@ -1,7 +1,6 @@
-
-
-
-export type ProfileReducerActionType = ReturnType<typeof ActionCreatorAddPost> | ReturnType<typeof ActionCreatorChangeText>
+export type ProfileReducerActionType =
+    ReturnType<typeof ActionCreatorAddPost>
+    | ReturnType<typeof ActionCreatorChangeText>
 export type PostsType = {
     id: number
     message: string
@@ -36,7 +35,7 @@ export const ActionCreatorChangeText = (newTextValue: string) => ({
 )
 
 
-export const profileReducers = (state: ProfilePageType = initialState, action: ProfileReducerActionType) : ProfilePageType => {
+export const profileReducers = (state: ProfilePageType = initialState, action: ProfileReducerActionType): ProfilePageType => {
 
     switch (action.type) {
         case ADD_POST:
