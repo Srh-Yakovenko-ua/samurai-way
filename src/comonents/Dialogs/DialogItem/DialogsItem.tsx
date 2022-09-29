@@ -9,8 +9,8 @@ type DialogListType = {
 }
 
 export const DialogList: React.FC<DialogListType> = (props) => {
-
     const {id, name} = props
+
     const path = `/dialogs/${id}`
 
     return (

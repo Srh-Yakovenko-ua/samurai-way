@@ -2,24 +2,18 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogList} from './DialogItem/DialogsItem';
 import {Message} from './Message/Message';
-//import {ActionsType, DialogsType, MessagesType,} from '../../Redux/store';
-import {
-    dialogsReducersActionType,
-    DialogsType,
-    MessagesType,
-    sendMessageCreator,
-    updateNewMessageBodyCreator
-} from '../../Redux/dialogs-reducer';
+import {DialogsType, MessagesType,} from '../../Redux/dialogs-reducer';
 
 type PropsType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessageText: string
-    dispatch: (action: dialogsReducersActionType) => void
+    onSendMessageClick: () => void
+    onChangeMessageBody: (bodyText: string) => void
 }
 
 export const Dialogs: React.FC<PropsType> = (props) => {
-    const {dialogs, messages, newMessageText, dispatch} = props;
+    const {dialogs, messages, newMessageText, onSendMessageClick, onChangeMessageBody} = props
 
     const messageElements = messages.map((message) => <Message key={message.id}
                                                                message={message.message}/>)
@@ -29,12 +23,11 @@ export const Dialogs: React.FC<PropsType> = (props) => {
                                                                 id={dialog.id}/>)
 
 
-    const onSendMessageClick = () => {
-        dispatch(sendMessageCreator(newMessageText))
-    }
+    const onSendNewMessageClick = () => onSendMessageClick()
+
     const onChangeNewMessageBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const bodyText = e.currentTarget.value
-        dispatch(updateNewMessageBodyCreator(bodyText))
+        onChangeMessageBody(bodyText)
     }
 
     return (
@@ -43,12 +36,14 @@ export const Dialogs: React.FC<PropsType> = (props) => {
                 <div className={s.dialogsList}>
                     {dialogsElements}
                 </div>
-                <div className={s.messages}>{messageElements}
+                <div className={s.messages}>
+                    {messageElements}
                     <div>
                         <div><textarea placeholder={'Enter your message'}
                                        onChange={onChangeNewMessageBody}
-                                       value={newMessageText}></textarea></div>
-                        <div onClick={onSendMessageClick}>Send</div>
+                                       value={newMessageText}></textarea>
+                        </div>
+                        <div onClick={onSendNewMessageClick}>Send</div>
                     </div>
                 </div>
 
