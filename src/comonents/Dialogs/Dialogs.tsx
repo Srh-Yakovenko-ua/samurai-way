@@ -2,24 +2,25 @@ import React, {ChangeEvent} from 'react';
 import style from './Dialogs.module.css'
 import {DialogList} from './DialogItem/DialogsItem';
 import {Message} from './Message/Message';
-import {DialogsType, MessagesType,} from '../../Redux/dialogs-reducer';
+import {DialogsPageType} from '../../Redux/dialogs-reducer';
+
 
 
 type PropsType = {
-    dialogs: Array<DialogsType>
-    messages: Array<MessagesType>
-    newMessageText: string
+    dialogPage : DialogsPageType
     onSendMessageClick: () => void
     onChangeMessageBody: (bodyText: string) => void
 }
 
 export const Dialogs: React.FC<PropsType> = (props) => {
-    const {dialogs, messages, newMessageText, onSendMessageClick, onChangeMessageBody} = props
+    // const dialogs = useSelector<RootReducerType, DialogsType[]>(state => state.dialogsPage.dialogs)
 
-    const messageElements = messages.map((message) => <Message key={message.id}
+    const {dialogPage, onSendMessageClick, onChangeMessageBody} = props
+
+    const messageElements = dialogPage.messages.map((message) => <Message key={message.id}
                                                                message={message.message}/>)
 
-    const dialogsElements = dialogs.map((dialog) => <DialogList key={dialog.id}
+    const dialogsElements = dialogPage.dialogs.map((dialog) => <DialogList key={dialog.id}
                                                                 name={dialog.name}
                                                                 id={dialog.id}/>)
 
@@ -30,7 +31,7 @@ export const Dialogs: React.FC<PropsType> = (props) => {
         const bodyText = e.currentTarget.value
         onChangeMessageBody(bodyText)
     }
-
+const newMessageText = dialogPage.newMessageText;
     return (
         <div>
             <div className={style.dialogs}>
