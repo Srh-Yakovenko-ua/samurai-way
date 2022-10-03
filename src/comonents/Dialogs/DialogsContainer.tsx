@@ -1,15 +1,10 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import {sendMessageCreator, updateNewMessageBodyCreator} from '../../Redux/dialogs-reducer';
-import {store, storeType} from '../../Redux/redux-store';
 import {Dialogs} from './Dialogs';
 import {StoreContext} from '../../StoreContext';
-import {ActionCreatorAddPost, ActionCreatorChangeText} from '../../Redux/profile-reducer';
-import MyPosts from '../Profile/MyPosts/MyPosts';
 
-//type DialogsContainerType = { store: storeType }
 
 export const DialogsContainer = () => {
-
 
 
     return (

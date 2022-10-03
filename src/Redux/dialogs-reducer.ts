@@ -17,7 +17,7 @@ export type DialogsPageType = {
 
 const NEW_MESSAGE_TEXT = 'NEW_MESSAGE_TEXT_BODY'
 const SEND_MESSAGE = 'SEND_MESSAGE'
-const initialState = {
+const initialState: DialogsPageType = {
     dialogs: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrey'},
@@ -47,7 +47,6 @@ export const updateNewMessageBodyCreator = (bodyText: string) => ({
         type: NEW_MESSAGE_TEXT,
         body: bodyText
     } as const
-
 )
 
 

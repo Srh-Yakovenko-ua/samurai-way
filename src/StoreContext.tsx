@@ -10,7 +10,7 @@ type ProviderType = {
 }
 
 export const Provider: React.FC<ProviderType> = (props) => {
-    const {store,children} = props
+    const {store, children} = props
     return (
         <StoreContext.Provider value={store}>
             {children}

@@ -1,12 +1,8 @@
 import React from 'react';
 import MyPosts from '../MyPosts';
-import {store, storeType} from '../../../../Redux/redux-store';
 import {ActionCreatorAddPost, ActionCreatorChangeText} from '../../../../Redux/profile-reducer';
 import {StoreContext} from '../../../../StoreContext';
 
-// type MyPostsPropsContainerType = {
-//     store: storeType
-// }
 
 const MyPostsContainer = () => {
 
@@ -30,7 +26,6 @@ const MyPostsContainer = () => {
                              posts={store.getState().profilePage.posts}/>
                 )
             }}
-
         </StoreContext.Consumer>
     );
 };

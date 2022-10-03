@@ -1,8 +1,9 @@
 import React, {ChangeEvent} from 'react';
-import s from './Dialogs.module.css'
+import style from './Dialogs.module.css'
 import {DialogList} from './DialogItem/DialogsItem';
 import {Message} from './Message/Message';
 import {DialogsType, MessagesType,} from '../../Redux/dialogs-reducer';
+
 
 type PropsType = {
     dialogs: Array<DialogsType>
@@ -32,11 +33,11 @@ export const Dialogs: React.FC<PropsType> = (props) => {
 
     return (
         <div>
-            <div className={s.dialogs}>
-                <div className={s.dialogsList}>
+            <div className={style.dialogs}>
+                <div className={style.dialogsList}>
                     {dialogsElements}
                 </div>
-                <div className={s.messages}>
+                <div className={style.messages}>
                     {messageElements}
                     <div>
                         <div><textarea placeholder={'Enter your message'}

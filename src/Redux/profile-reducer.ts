@@ -1,5 +1,4 @@
-export type ProfileReducerActionType =
-    ReturnType<typeof ActionCreatorAddPost>
+export type ProfileReducerActionType = ReturnType<typeof ActionCreatorAddPost>
     | ReturnType<typeof ActionCreatorChangeText>
 export type PostsType = {
     id: number
@@ -15,7 +14,7 @@ export type ProfilePageType = {
 const ADD_POST = 'ADD-POST'
 const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
 
-const initialState = {
+const initialState: ProfilePageType = {
     newPostText: '',
     posts: [
         {id: 1, message: 'Hi,How are you?', likesCount: 12},

@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import s from './MyPost.module.css'
+import style from './MyPost.module.css'
 import Post from './Post/Post';
 import {PostsType} from '../../../Redux/profile-reducer';
 
@@ -31,7 +31,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     return (
         <>
-            <div className={s.postsBlock}>
+            <div className={style.postsBlock}>
                 My posts
                 <div>
                     <div>
@@ -43,7 +43,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
                     </div>
                 </div>
             </div>
-            <div className={s.posts}>
+            <div className={style.posts}>
                 {postsElement}
             </div>
         </>
