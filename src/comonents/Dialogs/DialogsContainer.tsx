@@ -7,7 +7,8 @@ import {RootReducerType} from '../../Redux/redux-store';
 
 const mapStateToProps = (state: RootReducerType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        newMessageText : state.dialogsPage.newMessageText
     }
 }
 const mapDispatchToProps = (dispatch: (action: dialogsReducersActionType) => void) => {
@@ -20,7 +21,7 @@ const mapDispatchToProps = (dispatch: (action: dialogsReducersActionType) => voi
         },
     }
 }
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 
 //  const DialogsContainer = () => {

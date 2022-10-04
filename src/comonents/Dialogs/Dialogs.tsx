@@ -6,21 +6,22 @@ import {DialogsPageType} from '../../Redux/dialogs-reducer';
 
 
 
+
 type PropsType = {
-    dialogPage : DialogsPageType
+    dialogsPage : DialogsPageType
+    newMessageText : string
     onSendMessageClick: () => void
     onChangeMessageBody: (bodyText: string) => void
 }
 
 export const Dialogs: React.FC<PropsType> = (props) => {
     // const dialogs = useSelector<RootReducerType, DialogsType[]>(state => state.dialogsPage.dialogs)
+    const {dialogsPage,newMessageText, onSendMessageClick, onChangeMessageBody} = props;
 
-    const {dialogPage, onSendMessageClick, onChangeMessageBody} = props
-
-    const messageElements = dialogPage.messages.map((message) => <Message key={message.id}
+    const messageElements = dialogsPage.messages.map((message) => <Message key={message.id}
                                                                message={message.message}/>)
 
-    const dialogsElements = dialogPage.dialogs.map((dialog) => <DialogList key={dialog.id}
+    const dialogsElements = dialogsPage.dialogs.map((dialog) => <DialogList key={dialog.id}
                                                                 name={dialog.name}
                                                                 id={dialog.id}/>)
 
@@ -31,7 +32,7 @@ export const Dialogs: React.FC<PropsType> = (props) => {
         const bodyText = e.currentTarget.value
         onChangeMessageBody(bodyText)
     }
-const newMessageText = dialogPage.newMessageText;
+
     return (
         <div>
             <div className={style.dialogs}>
