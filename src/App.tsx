@@ -12,6 +12,7 @@ import {DialogsContainer} from './comonents/Dialogs/DialogsContainer';
 
 
 
+
 const App = () => {
 
 
@@ -20,9 +21,8 @@ const App = () => {
             <Header/>
             <Navbar/>
             <div className="app-wrapper-content">
-                <Route path={'/dialogs'}
-                       render={() => DialogsContainer}/>
-                <Route path={'/profile'} render={() => <Profile/>}/>
+                <Route path={'/dialogs'} component={DialogsContainer}/>
+                <Route path={'/profile'} component={Profile}/>
                 <Route path={'/news'} component={News}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Settings}/>
