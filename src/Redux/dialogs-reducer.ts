@@ -17,7 +17,7 @@ export type DialogsPageType = {
 
 const NEW_MESSAGE_TEXT = 'NEW_MESSAGE_TEXT_BODY'
 const SEND_MESSAGE = 'SEND_MESSAGE'
-const initialState: DialogsPageType = {
+const initialState = {
     dialogs: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrey'},
@@ -38,9 +38,13 @@ const initialState: DialogsPageType = {
 }
 
 
-export const sendMessageCreator = (newMessageText: string) => ({
-        type: SEND_MESSAGE,
-        newMessageTextBody: newMessageText
+// export const sendMessageCreator = (newMessageText: string) => ({
+//         type: SEND_MESSAGE,
+//         newMessageTextBody: newMessageText
+//     } as const
+// )
+export const sendMessageCreator = () => ({
+        type: SEND_MESSAGE
     } as const
 )
 export const updateNewMessageBodyCreator = (bodyText: string) => ({
@@ -57,7 +61,7 @@ export const dialogsReducers = (state: DialogsPageType = initialState, action: d
             state.newMessageText = action.body
             return state
         case SEND_MESSAGE:
-            const newMessages = {id: 7, message: action.newMessageTextBody}
+            const newMessages = {id: 7, message: state.newMessageText}
             state.messages.push(newMessages)
             state.newMessageText = '';
             return state
