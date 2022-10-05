@@ -6,8 +6,9 @@ export type storeType = typeof store
 
 let reducers = combineReducers({
     profilePage: profileReducers,
-    dialogsPage: dialogsReducers
+    dialogsPage: dialogsReducers,
 });
 
 
 export let store = createStore(reducers);
+export type RootReducerType = ReturnType<typeof reducers>;
