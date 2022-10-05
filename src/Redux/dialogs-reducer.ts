@@ -58,13 +58,14 @@ export const dialogsReducers = (state: DialogsPageType = initialState, action: d
 
     switch (action.type) {
         case NEW_MESSAGE_TEXT:
-            state.newMessageText = action.body
-            return state
+            return {...state, newMessageText: action.body}
         case SEND_MESSAGE:
             const newMessages = {id: 7, message: state.newMessageText}
-            state.messages.push(newMessages)
-            state.newMessageText = '';
-            return state
+            const copyState = {...state, messages: [...state.messages, newMessages]}
+            copyState.newMessageText = '';
+            return copyState
+        // state.messages.push(newMessages)
+        // state.newMessageText = '';
         default : {
             return state
         }
