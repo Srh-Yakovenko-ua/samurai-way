@@ -11,7 +11,8 @@ import {RootReducerType} from '../../../../Redux/redux-store';
 
 const mapStateToProps = (state: RootReducerType) => {
     return {
-        profilePage: state.profilePage
+        profilePage: state.profilePage,
+        newPostText : state.profilePage.newPostText
     }
 }
 const mapDispatchToProps = (dispatch: (action: ProfileReducerActionType) => void) => {

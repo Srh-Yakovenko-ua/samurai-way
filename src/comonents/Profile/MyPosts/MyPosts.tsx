@@ -1,16 +1,17 @@
 import React, {ChangeEvent} from 'react';
 import style from './MyPost.module.css'
 import Post from './Post/Post';
-import {PostsType, ProfilePageType} from '../../../Redux/profile-reducer';
+import {ProfilePageType} from '../../../Redux/profile-reducer';
 
 type MyPostsPropsType = {
-    profilePage : ProfilePageType
+    profilePage: ProfilePageType
+    newPostText : string
     addPost: () => void
     onPostChange: (newTextValue: string) => void
 }
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-    const { onPostChange, addPost, profilePage} = props
+    const {onPostChange, addPost, profilePage,newPostText} = props
 
     const postsElement = profilePage.posts.map((p) => <Post
         key={p.id}
@@ -27,7 +28,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         onPostChange(newTextValue)
     }
 
-   const newPostText = profilePage.newPostText
+
     return (
         <>
             <div className={style.postsBlock}>
