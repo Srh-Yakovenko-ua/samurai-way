@@ -1,4 +1,5 @@
-export type ProfileReducerActionType = ReturnType<typeof ActionCreatorAddPost>
+export type ProfileReducerActionType =
+    ReturnType<typeof ActionCreatorAddPost>
     | ReturnType<typeof ActionCreatorChangeText>
 export type PostsType = {
     id: number
@@ -38,12 +39,11 @@ export const profileReducers = (state: ProfilePageType = initialState, action: P
     switch (action.type) {
         case ADD_POST:
             const newPost = {id: 3, message: state.newPostText, likesCount: 0};
-            state.posts.push(newPost);
-            state.newPostText = '';
-            return state
+            const stateCopy = {...state, posts: [...state.posts, newPost]}
+            stateCopy.newPostText = ''
+            return stateCopy
         case CHANGE_NEW_TEXT:
-            state.newPostText = action.newText
-            return state
+            return {...state, newPostText: action.newText}
         default : {
             return state
         }
