@@ -1,14 +1,15 @@
 import React from 'react';
 
-type usersActionType = ReturnType<typeof followAC>
+export type usersActionType = ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
-type usersType = {
+export type usersType = {
     id: number
+    photoUrl : string
     followed: boolean
     fullName: string
     status: string
@@ -18,7 +19,7 @@ type locationType = {
     city: string
     country: string
 }
-type stateUsersType = {
+export type stateUsersType = {
     users: usersType[]
 }
 
@@ -26,6 +27,7 @@ let initialState: stateUsersType = {
     users: [
         {
             id: 1,
+            photoUrl : 'https://igate.com.ua/upload/photo/0001/0001/3383/6955/55.jpg',
             followed: false,
             fullName: 'Alexandr',
             status: 'i am a boss',
@@ -33,6 +35,7 @@ let initialState: stateUsersType = {
         },
         {
             id: 2,
+            photoUrl : 'https://igate.com.ua/upload/photo/0001/0001/3383/6955/55.jpg',
             followed: true,
             fullName: 'Andrew',
             status: 'i am a boss',
@@ -40,6 +43,7 @@ let initialState: stateUsersType = {
         },
         {
             id: 3,
+            photoUrl : 'https://igate.com.ua/upload/photo/0001/0001/3383/6955/55.jpg',
             followed: false,
             fullName: 'Dmitriy',
             status: 'i am a boss too',
