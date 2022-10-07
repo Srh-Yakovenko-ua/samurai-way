@@ -1,25 +1,28 @@
 import React from 'react';
 
-type usersActionType = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC>
+type usersActionType = ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setUsersAC>
 const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW'
+const UNFOLLOW = 'UNFOLLOW';
+const SET_USERS = 'SET_USERS';
 
 type usersType = {
-    id : number
-    followed : boolean
-    fullName : string
-    status : string
-    location : locationType
+    id: number
+    followed: boolean
+    fullName: string
+    status: string
+    location: locationType
 }
 type locationType = {
-    city : string
-    country : string
+    city: string
+    country: string
 }
 type stateUsersType = {
-    users : usersType[]
+    users: usersType[]
 }
 
-let initialState : stateUsersType = {
+let initialState: stateUsersType = {
     users: [
         {
             id: 1,
@@ -63,6 +66,14 @@ export const unfollowAC = (userID: any) => {
         }
     } as const
 }
+export const setUsersAC = (users: any) => {
+    return {
+        type: SET_USERS,
+        payload: {
+            users: users
+        }
+    } as const
+}
 
 export const usersReducer = (state: stateUsersType = initialState, action: usersActionType): stateUsersType => {
     switch (action.type) {
@@ -70,6 +81,8 @@ export const usersReducer = (state: stateUsersType = initialState, action: users
             return {...state, users: state.users.map(u => u === action.payload.userID ? {...u, followed: true} : u)}
         case UNFOLLOW :
             return {...state, users: state.users.map(u => u === action.payload.userID ? {...u, followed: false} : u)}
+        case SET_USERS :
+            return {...state, users: [...state.users, ...action.payload.users]}
         default :
             return state
     }
