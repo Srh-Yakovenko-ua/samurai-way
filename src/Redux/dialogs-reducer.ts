@@ -37,12 +37,6 @@ const initialState = {
     newMessageText: ''
 }
 
-
-// export const sendMessageCreator = (newMessageText: string) => ({
-//         type: SEND_MESSAGE,
-//         newMessageTextBody: newMessageText
-//     } as const
-// )
 export const sendMessageCreator = () => ({
         type: SEND_MESSAGE
     } as const
@@ -64,8 +58,6 @@ export const dialogsReducers = (state: DialogsPageType = initialState, action: d
             const copyState = {...state, messages: [...state.messages, newMessages]}
             copyState.newMessageText = '';
             return copyState
-        // state.messages.push(newMessages)
-        // state.newMessageText = '';
         default : {
             return state
         }
