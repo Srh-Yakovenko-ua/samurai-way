@@ -21,34 +21,8 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
-let initialState: stateUsersType = {
-    users: [
-        {
-            id: 1,
-            photoUrl : 'https://igate.com.ua/upload/photo/0001/0001/3383/6955/55.jpg',
-            followed: false,
-            fullName: 'Alexandr',
-            status: 'i am a boss',
-            location: {city: 'Florida', country: 'USA'}
-        },
-        {
-            id: 2,
-            photoUrl : 'https://igate.com.ua/upload/photo/0001/0001/3383/6955/55.jpg',
-            followed: false,
-            fullName: 'Andrew',
-            status: 'i am a boss',
-            location: {city: 'Kiev', country: 'Ukraine'}
-        },
-        {
-            id: 3,
-            photoUrl : 'https://igate.com.ua/upload/photo/0001/0001/3383/6955/55.jpg',
-            followed: false,
-            fullName: 'Dmitriy',
-            status: 'i am a boss too',
-            location: {city: 'Augsburg', country: 'Germany'}
-        },
-
-    ]
+let initialState = {
+    users: []
 }
 
 
@@ -68,7 +42,7 @@ export const unfollowAC = (userID: number) => {
         }
     } as const
 }
-export const setUsersAC = (users: any) => {
+export const setUsersAC = (users: usersType[]) => {
     return {
         type: SET_USERS,
         payload: {
@@ -78,7 +52,6 @@ export const setUsersAC = (users: any) => {
 }
 
 export const usersReducer = (state: stateUsersType = initialState, action: usersActionType): stateUsersType => {
-    console.log(state, 'state')
     switch (action.type) {
         case FOLLOW :
             return {...state, users: state.users.map(u => u.id === action.payload.userID ? {...u, followed : true} : u)}
