@@ -4,15 +4,15 @@ export type usersActionType = ReturnType<typeof followAC>
     | ReturnType<typeof setUsersAC>
 export type usersType = {
     id: number
-    photoUrl : string
     followed: boolean
-    fullName: string
+    name: string
+    photos : PhotosType
     status: string
-    location: locationType
+    uniqueUrlName : string
 }
-type locationType = {
-    city: string
-    country: string
+type PhotosType = {
+    small : string
+    large : string
 }
 export type stateUsersType = {
     users: usersType[]
@@ -52,6 +52,7 @@ export const setUsersAC = (users: usersType[]) => {
 }
 
 export const usersReducer = (state: stateUsersType = initialState, action: usersActionType): stateUsersType => {
+    console.log(state)
     switch (action.type) {
         case FOLLOW :
             return {...state, users: state.users.map(u => u.id === action.payload.userID ? {...u, followed : true} : u)}
