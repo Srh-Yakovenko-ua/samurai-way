@@ -11,49 +11,27 @@ type UsersPropsType = {
     setUsers: (user: usersType[]) => void
 }
 export const Users: React.FC<UsersPropsType> = (props) => {
-    const {users, follow, unfollow, setUsers} = props;
-    if (users.length === 0) {
-        axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                setUsers(response.data.items)
-            })
-    }
-        //     setUsers([
-        //         {
-        //             id: 1,
-        //             photoUrl: 'https://igate.com.ua/upload/photo/0001/0001/3383/6955/55.jpg',
-        //             followed: false,
-        //             fullName: 'Alexandr',
-        //             status: 'i am a boss',
-        //             location: {city: 'Florida', country: 'USA'}
-        //         },
-        //         {
-        //             id: 2,
-        //             photoUrl: 'https://igate.com.ua/upload/photo/0001/0001/3383/6955/55.jpg',
-        //             followed: false,
-        //             fullName: 'Andrew',
-        //             status: 'i am a boss',
-        //             location: {city: 'Kiev', country: 'Ukraine'}
-        //         },
-        //         {
-        //             id: 3,
-        //             photoUrl: 'https://igate.com.ua/upload/photo/0001/0001/3383/6955/55.jpg',
-        //             followed: false,
-        //             fullName: 'Dmitriy',
-        //             status: 'i am a boss too',
-        //             location: {city: 'Augsburg', country: 'Germany'}
-        //         },
-        //
-        //     ])
-        // }
+        const {users, follow, unfollow, setUsers} = props;
+
+        let getUsers = () => {
+            if (users.length === 0) {
+                axios
+                    .get('https://social-network.samuraijs.com/api/1.0/users')
+                    .then(response => {
+                        setUsers(response.data.items)
+                    })
+            }
+        }
+
 
         return (
             <div>
+                <button onClick={getUsers}>Get Users</button>
                 {users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small !== null ? u.photos.small : usersPhoto} className={styles.userPhoto} alt={'avatar'}/>
+                        <img src={u.photos.small !== null ? u.photos.small : usersPhoto} className={styles.userPhoto}
+                             alt={'avatar'}/>
                     </div>
                     <div>
                         {u.followed ? <button onClick={() => unfollow(u.id)}>unFollow</button> :
@@ -74,5 +52,5 @@ export const Users: React.FC<UsersPropsType> = (props) => {
             </div>
         );
     }
-    ;
+;
 
