@@ -55,16 +55,14 @@ type UsersPropsType = {
 // ;
 //
 export class Users extends React.Component<UsersPropsType> {
-    constructor(props: UsersPropsType) {
-        super(props);
-        const {setUsers} = this.props;
+
+    componentDidMount = () => {
         axios
             .get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
-                setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
             })
     }
-
 
     render = () => {
         const {users, follow, unfollow} = this.props;
