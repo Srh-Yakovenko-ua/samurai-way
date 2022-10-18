@@ -6,9 +6,13 @@ import usersPhoto from '../../assets/images/users.png'
 
 type UsersPropsType = {
     users: usersType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
     follow: (userID: number) => void
     unfollow: (userID: number) => void
     setUsers: (user: usersType[]) => void
+    setCurrentPage: (currentPage: number) => void
 }
 // export const Users: React.FC<UsersPropsType> = (props) => {
 //         const {users, follow, unfollow, setUsers} = props;
@@ -57,17 +61,36 @@ type UsersPropsType = {
 export class Users extends React.Component<UsersPropsType> {
 
     componentDidMount = () => {
+        const {currentPage, pageSize} = this.props;
         axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
-            })
+            });
     }
 
     render = () => {
-        const {users, follow, unfollow} = this.props;
+        const {
+            users,
+            follow,
+            unfollow,
+            pageSize,
+            totalUsersCount,
+            currentPage,
+            setCurrentPage
+        } = this.props;
+
+        const pagesCount = Math.ceil(totalUsersCount / pageSize);
+        const pages = [];
+        for (let i = 1; i <= pagesCount; i++) pages.push(i)
+        const pagesNumber = pages.map(p => <span onClick={() => setCurrentPage(p)}
+                                                 className={currentPage === p ? styles.selectedPage : ''}>{p}</span>)
+
         return (
             <div>
+                <div>
+                    {pagesNumber}
+                </div>
                 {users.map(u => <div key={u.id}>
                 <span>
                     <div>
