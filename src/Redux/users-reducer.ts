@@ -2,6 +2,7 @@ export type usersActionType = ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 export type usersType = {
     id: number
     followed: boolean
@@ -24,12 +25,13 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 
 let initialState = {
     users: [],
     pageSize: 5,
-    totalUsersCount: 21,
-    currentPage: 2
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 
@@ -66,6 +68,14 @@ export const setCurrentPageAC = (currentPage: number) => {
     } as const
 
 }
+export const setTotalUsersCountAC = (totalCount: number) => {
+    return {
+        type: SET_TOTAL_USERS_COUNT,
+        payload: {
+            totalCount: totalCount
+        }
+    } as const
+}
 
 export const usersReducer = (state: stateUsersType = initialState, action: usersActionType): stateUsersType => {
     console.log(state)
@@ -75,9 +85,11 @@ export const usersReducer = (state: stateUsersType = initialState, action: users
         case UNFOLLOW :
             return {...state, users: state.users.map(u => u.id === action.payload.userID ? {...u, followed: false} : u)}
         case SET_USERS :
-            return {...state, users: [...state.users, ...action.payload.users]}
+            return {...state, users: action.payload.users}
         case SET_CURRENT_PAGE :
             return {...state, currentPage: action.payload.currentPage}
+        case SET_TOTAL_USERS_COUNT :
+            return {...state, totalUsersCount: action.payload.totalCount}
         default :
             return state
     }
