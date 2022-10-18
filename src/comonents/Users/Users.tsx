@@ -23,18 +23,17 @@ export class Users extends React.Component<UsersPropsType> {
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
-                console.log(response)
                 setUsers(response.data.items)
-                setTotalUsersCount(50)
+                setTotalUsersCount(response.data.totalCount)
             });
     }
     onPageChanged = (pageNumber: number) => {
-        const {pageSize} = this.props;
+        const {pageSize,setUsers} = this.props;
         this.props.setCurrentPage(pageNumber)
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`)
             .then(response => {
-                this.props.setUsers(response.data.items)
+                setUsers(response.data.items)
             });
     }
 
@@ -51,7 +50,14 @@ export class Users extends React.Component<UsersPropsType> {
         const pagesCount = Math.ceil(totalUsersCount / pageSize);
         const pages = [];
         for (let i = 1; i <= pagesCount; i++) pages.push(i)
-        const pagesNumber = pages.map((p, i) => <span key={i} onClick={() => this.onPageChanged(p)}
+
+        const curP = currentPage;
+        const curPF = ((curP - 2) < 0) ?  0  : curP - 2 ;
+        const curPL = curP + 2;
+        const slicedPages = pages.slice( curPF, curPL);
+
+
+        const pagesNumber = slicedPages.map((p, i) => <span key={i} style={{padding: '0 5px'}} onClick={() => this.onPageChanged(p)}
                                                       className={currentPage === p ? styles.selectedPage : ''}>{p}</span>)
 
         return (
@@ -62,7 +68,7 @@ export class Users extends React.Component<UsersPropsType> {
                 {users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small !== null ? u.photos.small : usersPhoto} className={styles.userPhoto}
+                        <img src={u.photos.small !== null ? u.photos.small || u.photos.large : usersPhoto} className={styles.userPhoto}
                              alt={'avatar'}/>
                     </div>
                     <div>
