@@ -1,9 +1,8 @@
 import React from 'react';
 import MyPosts from '../MyPosts';
 import {
-    ActionCreatorAddPost,
-    ActionCreatorChangeText,
-    ProfileReducerActionType
+    AddPostAC,
+    ChangeTextAC,
 } from '../../../../Redux/profile-reducer';
 import {connect} from 'react-redux';
 import {RootReducerType} from '../../../../Redux/redux-store';
@@ -12,22 +11,15 @@ import {RootReducerType} from '../../../../Redux/redux-store';
 const mapStateToProps = (state: RootReducerType) => {
     return {
         profilePage: state.profilePage,
-        newPostText : state.profilePage.newPostText
-    }
-}
-const mapDispatchToProps = (dispatch: (action: ProfileReducerActionType) => void) => {
-    return {
-        addPost: () => {
-            dispatch(ActionCreatorAddPost())
-        },
-        onPostChange: (newTextValue: string) => {
-            dispatch(ActionCreatorChangeText(newTextValue))
-        },
+        newPostText: state.profilePage.newPostText
     }
 }
 
 
-export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+export const MyPostsContainer = connect(mapStateToProps, {
+    addPost: AddPostAC,
+    onPostChange: ChangeTextAC,
+})(MyPosts)
 
 // const MyPostsContainer = () => {
 //
@@ -57,3 +49,16 @@ export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyP
 //
 //
 // export default MyPostsContainer;
+
+
+// const mapDispatchToProps = (dispatch: (action: ProfileReducerActionType) => void) => {
+//     return {
+//         addPost: () => {
+//             dispatch(ActionCreatorAddPost())
+//         },
+//         onPostChange: (newTextValue: string) => {
+//             dispatch(ActionCreatorChangeText(newTextValue))
+//         },
+//     }
+// }
+//

@@ -1,6 +1,6 @@
 export type dialogsReducersActionType =
-    | ReturnType<typeof sendMessageCreator>
-    | ReturnType<typeof updateNewMessageBodyCreator>
+    | ReturnType<typeof sendMessageAC>
+    | ReturnType<typeof updateNewMessageBodyAC>
 export type MessagesType = {
     id: number
     message: string
@@ -37,11 +37,11 @@ const initialState = {
     newMessageText: ''
 }
 
-export const sendMessageCreator = () => ({
+export const sendMessageAC = () => ({
         type: SEND_MESSAGE
     } as const
 )
-export const updateNewMessageBodyCreator = (bodyText: string) => ({
+export const updateNewMessageBodyAC = (bodyText: string) => ({
         type: NEW_MESSAGE_TEXT,
         body: bodyText
     } as const

@@ -1,5 +1,5 @@
 import React from 'react';
-import {dialogsReducersActionType, sendMessageCreator, updateNewMessageBodyCreator} from '../../Redux/dialogs-reducer';
+import {sendMessageAC, updateNewMessageBodyAC} from '../../Redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {RootReducerType} from '../../Redux/redux-store';
@@ -11,17 +11,11 @@ const mapStateToProps = (state: RootReducerType) => {
         newMessageText: state.dialogsPage.newMessageText
     }
 }
-const mapDispatchToProps = (dispatch: (action: dialogsReducersActionType) => void) => {
-    return {
-        onSendMessageClick: () => {
-            dispatch(sendMessageCreator())
-        },
-        onChangeMessageBody: (bodyText: string) => {
-            dispatch(updateNewMessageBodyCreator(bodyText))
-        },
-    }
-}
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+export const DialogsContainer = connect(mapStateToProps, {
+    onSendMessageClick: sendMessageAC,
+    onChangeMessageBody: updateNewMessageBodyAC,
+})(Dialogs);
 
 
 //  const DialogsContainer = () => {
@@ -55,3 +49,13 @@ export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dia
 //
 // }
 
+// const mapDispatchToProps = (dispatch: (action: dialogsReducersActionType) => void) => {
+//     return {
+//         onSendMessageClick: () => {
+//             dispatch(sendMessageCreator())
+//         },
+//         onChangeMessageBody: (bodyText: string) => {
+//             dispatch(updateNewMessageBodyCreator(bodyText))
+//         },
+//     }
+// }

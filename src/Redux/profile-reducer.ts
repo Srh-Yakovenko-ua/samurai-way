@@ -1,6 +1,6 @@
 export type ProfileReducerActionType =
-    ReturnType<typeof ActionCreatorAddPost>
-    | ReturnType<typeof ActionCreatorChangeText>
+    ReturnType<typeof AddPostAC>
+    | ReturnType<typeof ChangeTextAC>
 export type PostsType = {
     id: number
     message: string
@@ -23,11 +23,11 @@ const initialState: ProfilePageType = {
     ]
 }
 
-export const ActionCreatorAddPost = () => ({
+export const AddPostAC = () => ({
         type: ADD_POST,
     } as const
 )
-export const ActionCreatorChangeText = (newTextValue: string) => ({
+export const ChangeTextAC = (newTextValue: string) => ({
         type: CHANGE_NEW_TEXT,
         newText: newTextValue
     } as const
