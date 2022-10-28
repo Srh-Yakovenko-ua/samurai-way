@@ -24,6 +24,8 @@ export const authReducer = (state: authReducerStateType = initialState, action: 
                 ...state,
                 ...action.payload
             }
+        default:
+            return state
     }
 }
 

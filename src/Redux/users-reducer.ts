@@ -90,7 +90,6 @@ export const setIsFetchingAc = (isFetching: boolean) => {
 }
 
 export const usersReducer = (state: stateUsersType = initialState, action: usersActionType): stateUsersType => {
-    console.log(state)
     switch (action.type) {
         case FOLLOW :
             return {...state, users: state.users.map(u => u.id === action.payload.userID ? {...u, followed: true} : u)}
