@@ -1,19 +1,19 @@
-
 const SET_USER_DATA = 'SET_USER_DATA'
 
 type ActionsType = ReturnType<typeof setUserDataAC>
 
-type authReducerStateType = {
-    id : null | number
-    email : null | string
-    login : null | string
+export type authReducerStateType = {
+    userId: null | number
+    email: null | string
+    login: null | string
+    isAuth: boolean
 }
 
 const initialState = {
-    id: null,
+    userId: null,
     email: null,
     login: null,
-
+    isAuth: false
 }
 
 
@@ -22,7 +22,8 @@ export const authReducer = (state: authReducerStateType = initialState, action: 
         case SET_USER_DATA :
             return {
                 ...state,
-                ...action.payload
+                ...action.payload,
+                isAuth: true
             }
         default:
             return state
