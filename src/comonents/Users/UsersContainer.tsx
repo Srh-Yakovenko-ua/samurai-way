@@ -12,19 +12,8 @@ import axios from 'axios';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
 
-type UsersContainerType = {
-    users: usersType[]
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
-    setUsers: (user: usersType[]) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
-    isFetching: boolean
-}
+
+type UsersContainerType = mapStateToPropsType & mapDispatchToPropsType
 type mapStateToPropsType = {
     users: usersType[]
     pageSize: number
@@ -47,7 +36,7 @@ class UsersContainer extends React.Component<UsersContainerType> {
         const {currentPage, pageSize, setUsers, setTotalUsersCount, toggleIsFetching} = this.props;
         toggleIsFetching(true)
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`, {withCredentials: true})
             .then(response => {
                 toggleIsFetching(false)
                 setUsers(response.data.items)
@@ -59,9 +48,8 @@ class UsersContainer extends React.Component<UsersContainerType> {
         setCurrentPage(pageNumber)
         toggleIsFetching(true)
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`, {withCredentials: true})
             .then(response => {
-
                 setUsers(response.data.items)
                 toggleIsFetching(false)
             });
@@ -86,8 +74,7 @@ class UsersContainer extends React.Component<UsersContainerType> {
 }
 
 
-
-const mapStateToProps = (state: RootReducerType) : mapStateToPropsType => {
+const mapStateToProps = (state: RootReducerType): mapStateToPropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -98,8 +85,7 @@ const mapStateToProps = (state: RootReducerType) : mapStateToPropsType => {
 }
 
 
-
-export default connect<mapStateToPropsType,mapDispatchToPropsType,{},RootReducerType>(mapStateToProps, {
+export default connect<mapStateToPropsType, mapDispatchToPropsType, {}, RootReducerType>(mapStateToProps, {
     follow: followAC,
     unfollow: unfollowAC,
     setUsers: setUsersAC,
@@ -107,8 +93,6 @@ export default connect<mapStateToPropsType,mapDispatchToPropsType,{},RootReducer
     setTotalUsersCount: setTotalUsersCountAC,
     toggleIsFetching: setIsFetchingAc,
 })(UsersContainer);
-
-
 
 
 // const mapDispatchToProps = (dispatch: (action: usersActionType) => void) => {
