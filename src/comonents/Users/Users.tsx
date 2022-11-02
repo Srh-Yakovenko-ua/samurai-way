@@ -3,7 +3,8 @@ import usersPhoto from '../../assets/images/users.png';
 import styles from './user.module.css';
 import {usersType} from '../../Redux/users-reducer';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
+import {paginator} from './paginator/paginator';
+import {usersApi} from '../../api/usersApi';
 
 
 type UsersPropsType = {
@@ -27,19 +28,18 @@ const Users: React.FC<UsersPropsType> = (props) => {
         follow
     } = props;
 
-    const pagesCount = Math.ceil(totalUsersCount / pageSize);
-    const pages = [];
-    for (let i = 1; i <= pagesCount; i++) pages.push(i)
-
-    const curP = currentPage;
-    const curPF = ((curP - 2) < 0) ? 0 : curP - 2;
-    const curPL = curP + 2;
-    const slicedPages = pages.slice(curPF, curPL);
-
+    const slicedPages = paginator(totalUsersCount, pageSize, currentPage)
     const pagesNumber = slicedPages.map((p, i) => <span key={i} style={{padding: '0 5px', cursor: 'pointer'}}
                                                         onClick={() => onPageChanged(p)}
                                                         className={currentPage === p ? styles.selectedPage : ''}>{p}</span>)
 
+    const followUser = (userID: number) => {
+        usersApi.followUser(userID, follow)
+    }
+
+    const unFollowUser = (userID: number) => {
+        usersApi.unFollowUser(userID, unfollow)
+    }
 
     return (
         <div>
@@ -56,24 +56,8 @@ const Users: React.FC<UsersPropsType> = (props) => {
                         </NavLink>
                     </div>
                     <div>
-                        {u.followed ? <button onClick={() => {
-                                axios
-                                    .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true})
-                                    .then(response => {
-                                        if (response.data.resultCode === 0) {
-                                            unfollow(u.id)
-                                        }
-                                    })
-                            }}>unFollow</button> :
-                            <button onClick={() => {
-                                axios
-                                    .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {withCredentials: true})
-                                    .then(response => {
-                                        if (response.data.resultCode === 0) {
-                                            follow(u.id)
-                                        }
-                                    })
-                            }}>Follow</button>}
+                        {u.followed ? <button onClick={() => unFollowUser(u.id)}>unFollow</button> :
+                            <button onClick={() => followUser(u.id)}>Follow</button>}
                     </div>
                 </span>
                 <span>
