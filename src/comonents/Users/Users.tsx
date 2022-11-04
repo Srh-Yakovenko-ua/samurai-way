@@ -4,7 +4,6 @@ import styles from './user.module.css';
 import {usersType} from '../../Redux/users-reducer';
 import {NavLink} from 'react-router-dom';
 import {paginator} from './paginator/paginator';
-import {usersApi} from '../../api/usersApi';
 
 
 type UsersPropsType = {
@@ -13,8 +12,9 @@ type UsersPropsType = {
     pageSize: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
+    followUser: (userID: number) => void
+    unFollowUser: (userID: number) => void
+    followingInProgress: [] | number[]
 }
 
 const Users: React.FC<UsersPropsType> = (props) => {
@@ -24,8 +24,9 @@ const Users: React.FC<UsersPropsType> = (props) => {
         currentPage,
         onPageChanged,
         users,
-        unfollow,
-        follow
+        unFollowUser,
+        followUser,
+        followingInProgress
     } = props;
 
     const slicedPages = paginator(totalUsersCount, pageSize, currentPage)
@@ -33,13 +34,6 @@ const Users: React.FC<UsersPropsType> = (props) => {
                                                         onClick={() => onPageChanged(p)}
                                                         className={currentPage === p ? styles.selectedPage : ''}>{p}</span>)
 
-    const followUser = (userID: number) => {
-        usersApi.followUser(userID, follow)
-    }
-
-    const unFollowUser = (userID: number) => {
-        usersApi.unFollowUser(userID, unfollow)
-    }
 
     return (
         <div>
@@ -56,8 +50,10 @@ const Users: React.FC<UsersPropsType> = (props) => {
                         </NavLink>
                     </div>
                     <div>
-                        {u.followed ? <button onClick={() => unFollowUser(u.id)}>unFollow</button> :
-                            <button onClick={() => followUser(u.id)}>Follow</button>}
+                        {u.followed ? <button disabled={followingInProgress.some(id => id === u.id)}
+                                              onClick={() => unFollowUser(u.id)}>unFollow</button> :
+                            <button disabled={followingInProgress.some(id => id === u.id)}
+                                    onClick={() => followUser(u.id)}>Follow</button>}
                     </div>
                 </span>
                 <span>
