@@ -1,5 +1,7 @@
-export type ProfileReducerActionType =
-    ReturnType<typeof AddPostAC>
+import {profileApi} from '../api/profileApi';
+import {Dispatch} from 'redux';
+
+export type ProfileReducerActionType = ReturnType<typeof AddPostAC>
     | ReturnType<typeof ChangeTextAC>
     | ReturnType<typeof setUserProfileAC>
 
@@ -54,24 +56,6 @@ const initialState: ProfilePageType = {
     profile: null,
 }
 
-export const AddPostAC = () => ({
-        type: ADD_POST,
-    } as const
-)
-export const ChangeTextAC = (newTextValue: string) => ({
-        type: CHANGE_NEW_TEXT,
-        newText: newTextValue
-    } as const
-)
-export const setUserProfileAC = (profile: ProfileType) => {
-    return {
-        type: SET_USER_PROFILE,
-        payload: {
-            profile: profile
-        }
-    } as const
-}
-
 
 export const profileReducers = (state: ProfilePageType = initialState, action: ProfileReducerActionType): ProfilePageType => {
     switch (action.type) {
@@ -91,4 +75,28 @@ export const profileReducers = (state: ProfilePageType = initialState, action: P
 }
 
 
+export const getProfileThunkCreator = (userId: string | undefined) => (dispatch: Dispatch) => {
+    profileApi.getProfile(userId)
+        .then(data => {
+            dispatch(setUserProfileAC(data))
+        })
+}
 
+
+export const AddPostAC = () => ({
+        type: ADD_POST,
+    } as const
+)
+export const ChangeTextAC = (newTextValue: string) => ({
+        type: CHANGE_NEW_TEXT,
+        newText: newTextValue
+    } as const
+)
+export const setUserProfileAC = (profile: ProfileType) => {
+    return {
+        type: SET_USER_PROFILE,
+        payload: {
+            profile: profile
+        }
+    } as const
+}
