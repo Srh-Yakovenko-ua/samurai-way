@@ -1,4 +1,4 @@
-export const paginator = (totalUsersCount: number, pageSize: number, currentPage: number) => {
+export const paginator = (totalUsersCount: number, pageSize: number, currentPage: number) : number[] => {
     const pagesCount = Math.ceil(totalUsersCount / pageSize);
     const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
