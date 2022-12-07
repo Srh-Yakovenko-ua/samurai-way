@@ -4,11 +4,13 @@ import {connect} from 'react-redux';
 import {RootReducerType} from '../../Redux/redux-store';
 import {getProfileThunkCreator, ProfileType} from '../../Redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
 
 
 type ProfileContainerType = MapStateToPropsType & MapDispatchPropsType;
 type MapStateToPropsType = {
     profile: ProfileType | null
+
 }
 type MapDispatchPropsType = {
     getProfile: (userId: string | undefined) => void
@@ -22,7 +24,9 @@ class ProfileContainer extends React.Component<ownProfileContainerType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId) { userId = '2' }
+        if (!userId) {
+            userId = '2'
+        }
 
         this.props.getProfile(userId)
     }
@@ -33,13 +37,16 @@ class ProfileContainer extends React.Component<ownProfileContainerType> {
     }
 }
 
+
+
+
 const mapStateToProps = (state: RootReducerType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
     }
 }
-
-let withUrlDataContainerComponent = withRouter(ProfileContainer)
+const AuthRedirectComponent = WithAuthRedirect(ProfileContainer)
+const withUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 export default connect<MapStateToPropsType, MapDispatchPropsType, {}, RootReducerType>(mapStateToProps, {
     getProfile: getProfileThunkCreator
