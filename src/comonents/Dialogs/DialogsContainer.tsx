@@ -3,28 +3,35 @@ import {DialogsPageType, sendMessageAC, updateNewMessageBodyAC} from '../../Redu
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {RootReducerType} from '../../Redux/redux-store';
+import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
 
 type mapStateToPropsType = {
     dialogsPage: DialogsPageType
     newMessageText: string
+
 }
 type mapDispatchToPropsType = {
     onSendMessageClick: () => void
     onChangeMessageBody: (bodyText: string) => void
 }
-
+export type ownDialogsContainerType = mapStateToPropsType & mapDispatchToPropsType
 
 const mapStateToProps = (state: RootReducerType) : mapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage,
-        newMessageText: state.dialogsPage.newMessageText
+        newMessageText: state.dialogsPage.newMessageText,
+
     }
 }
+
+const AuthRedirectComponent = WithAuthRedirect(Dialogs)
 
 export const DialogsContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {}, RootReducerType>(mapStateToProps, {
     onSendMessageClick: sendMessageAC,
     onChangeMessageBody: updateNewMessageBodyAC,
-})(Dialogs);
+})(AuthRedirectComponent);
+
+
 
 
 //  const DialogsContainer = () => {
