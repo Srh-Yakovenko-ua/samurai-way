@@ -10,6 +10,7 @@ import {
 } from '../../Redux/users-reducer';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
+import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
 
 type UsersContainerType = mapStateToPropsType & mapDispatchToPropsType
 type mapStateToPropsType = {
@@ -66,6 +67,8 @@ class UsersContainer extends React.Component<UsersContainerType> {
 }
 
 
+const AuthRedirectComponent = WithAuthRedirect(UsersContainer)
+
 const mapStateToProps = (state: RootReducerType): mapStateToPropsType => {
     return {
         users: state.usersPage.users,
@@ -83,7 +86,7 @@ export default connect<mapStateToPropsType, mapDispatchToPropsType, {}, RootRedu
     getUsers: getUsersThunkCreator,
     followUser: followUserThunkCreator,
     unFollowUser: unFollowUserThunkCreator,
-})(UsersContainer);
+})(AuthRedirectComponent);
 
 
 // const mapDispatchToProps = (dispatch: (action: usersActionType) => void) => {
