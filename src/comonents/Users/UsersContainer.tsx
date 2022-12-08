@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import {RootReducerType} from '../../Redux/redux-store';
 import {
@@ -11,6 +11,7 @@ import {
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from 'redux';
 
 type UsersContainerType = mapStateToPropsType & mapDispatchToPropsType
 type mapStateToPropsType = {
@@ -67,8 +68,6 @@ class UsersContainer extends React.Component<UsersContainerType> {
 }
 
 
-const AuthRedirectComponent = WithAuthRedirect(UsersContainer)
-
 const mapStateToProps = (state: RootReducerType): mapStateToPropsType => {
     return {
         users: state.usersPage.users,
@@ -80,13 +79,15 @@ const mapStateToProps = (state: RootReducerType): mapStateToPropsType => {
     }
 }
 
-
-export default connect<mapStateToPropsType, mapDispatchToPropsType, {}, RootReducerType>(mapStateToProps, {
-    setCurrentPage: setCurrentPageAC,
-    getUsers: getUsersThunkCreator,
-    followUser: followUserThunkCreator,
-    unFollowUser: unFollowUserThunkCreator,
-})(AuthRedirectComponent);
+export default compose<ComponentType>(
+    connect<mapStateToPropsType, mapDispatchToPropsType, {}, RootReducerType>(mapStateToProps, {
+        setCurrentPage: setCurrentPageAC,
+        getUsers: getUsersThunkCreator,
+        followUser: followUserThunkCreator,
+        unFollowUser: unFollowUserThunkCreator,
+    }),
+    WithAuthRedirect
+)(UsersContainer)
 
 
 // const mapDispatchToProps = (dispatch: (action: usersActionType) => void) => {
