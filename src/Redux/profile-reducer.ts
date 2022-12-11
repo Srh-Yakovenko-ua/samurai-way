@@ -1,9 +1,15 @@
 import {profileApi} from '../api/profileApi';
 import {Dispatch} from 'redux';
 
-export type ProfileReducerActionType = ReturnType<typeof AddPostAC>
+const ADD_POST = 'ADD-POST';
+const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS_PROFILE = 'SET_STATUS_PROFILE'
+export type ProfileReducerActionType =
+    ReturnType<typeof AddPostAC>
     | ReturnType<typeof ChangeTextAC>
     | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof setStatusProfileAC>
 
 
 type photosType = {
@@ -29,8 +35,6 @@ export type ProfileType = {
     userId: number
     photos: photosType
 }
-
-
 export type PostsType = {
     id: number
     message: string
@@ -40,12 +44,9 @@ export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
     profile: ProfileType | null
+    status: string
 }
 
-
-const ADD_POST = 'ADD-POST'
-const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
-const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 const initialState: ProfilePageType = {
     newPostText: '',
@@ -54,6 +55,7 @@ const initialState: ProfilePageType = {
         {id: 2, message: 'It\'s my new post', likesCount: 11},
     ],
     profile: null,
+    status: '',
 }
 
 
@@ -68,6 +70,8 @@ export const profileReducers = (state: ProfilePageType = initialState, action: P
             return {...state, newPostText: action.newText}
         case SET_USER_PROFILE :
             return {...state, profile: action.payload.profile}
+        case SET_STATUS_PROFILE :
+            return {...state, status: action.payload.status}
         default : {
             return state
         }
@@ -79,6 +83,22 @@ export const getProfileThunkCreator = (userId: string | undefined) => (dispatch:
     profileApi.getProfile(userId)
         .then(data => {
             dispatch(setUserProfileAC(data))
+        })
+}
+export const getStatusProfileThunkCreator = (userId: string | undefined) => (dispatch: Dispatch) => {
+    profileApi
+        .getProfileStatus(userId)
+        .then((response) => {
+            dispatch(setStatusProfileAC(response.data))
+        })
+}
+export const updateStatusProfileThunkCreator = (newStatus: string) => (dispatch: Dispatch) => {
+    profileApi
+        .updateProfileStatus(newStatus)
+        .then((response) => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatusProfileAC(newStatus))
+            }
         })
 }
 
@@ -97,6 +117,14 @@ export const setUserProfileAC = (profile: ProfileType) => {
         type: SET_USER_PROFILE,
         payload: {
             profile: profile
+        }
+    } as const
+}
+export const setStatusProfileAC = (status: string) => {
+    return {
+        type: SET_STATUS_PROFILE,
+        payload: {
+            status
         }
     } as const
 }
