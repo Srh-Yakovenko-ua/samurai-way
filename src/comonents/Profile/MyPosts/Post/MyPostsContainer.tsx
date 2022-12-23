@@ -2,7 +2,6 @@ import React from 'react';
 import MyPosts from '../MyPosts';
 import {
     AddPostAC,
-    ChangeTextAC,
 } from '../../../../Redux/profile-reducer';
 import {connect} from 'react-redux';
 import {RootReducerType} from '../../../../Redux/redux-store';
@@ -11,14 +10,12 @@ import {RootReducerType} from '../../../../Redux/redux-store';
 const mapStateToProps = (state: RootReducerType) => {
     return {
         profilePage: state.profilePage,
-        newPostText: state.profilePage.newPostText
     }
 }
 
 
 export const MyPostsContainer = connect(mapStateToProps, {
     addPost: AddPostAC,
-    onPostChange: ChangeTextAC,
 })(MyPosts)
 
 // const MyPostsContainer = () => {
