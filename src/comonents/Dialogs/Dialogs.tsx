@@ -1,20 +1,16 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import style from './Dialogs.module.css'
 import {DialogList} from './DialogItem/DialogsItem';
 import {Message} from './Message/Message';
-import {DialogsPageType} from '../../Redux/dialogs-reducer';
+import {ownDialogsContainerType} from './DialogsContainer';
+import {AddMessageFormRedux, AddMessageFormType} from './AddMessageForm';
 
 
-type PropsType = {
-    dialogsPage: DialogsPageType
-    newMessageText: string
-    onSendMessageClick: () => void
-    onChangeMessageBody: (bodyText: string) => void
-}
-
-export const Dialogs: React.FC<PropsType> = (props) => {
-    // const dialogs = useSelector<RootReducerType, DialogsType[]>(state => state.dialogsPage.dialogs)
-    const {dialogsPage, newMessageText, onSendMessageClick, onChangeMessageBody} = props;
+export const Dialogs: React.FC<ownDialogsContainerType> = (props) => {
+    const {
+        dialogsPage,
+        onSendMessageClick,
+    } = props;
 
     const messageElements = dialogsPage.messages.map((message) => <Message key={message.id}
                                                                            message={message.message}/>)
@@ -23,13 +19,8 @@ export const Dialogs: React.FC<PropsType> = (props) => {
                                                                             name={dialog.name}
                                                                             id={dialog.id}/>)
 
+    const addNewMessage = (formData: AddMessageFormType) => onSendMessageClick(formData.newMessageBody)
 
-    const onSendNewMessageClick = () => onSendMessageClick()
-
-    const onChangeNewMessageBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const bodyText = e.currentTarget.value
-        onChangeMessageBody(bodyText)
-    }
 
     return (
         <div>
@@ -39,17 +30,9 @@ export const Dialogs: React.FC<PropsType> = (props) => {
                 </div>
                 <div className={style.messages}>
                     {messageElements}
-                    <div>
-                        <div><textarea placeholder={'Enter your message'}
-                                       onChange={onChangeNewMessageBody}
-                                       value={newMessageText}></textarea>
-                        </div>
-                        <div onClick={onSendNewMessageClick}>Send</div>
-                    </div>
                 </div>
-
+                <AddMessageFormRedux onSubmit={addNewMessage}/>
             </div>
-
         </div>
     );
 };

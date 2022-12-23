@@ -1,17 +1,19 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import style from './MyPost.module.css'
 import Post from './Post/Post';
 import {ProfilePageType} from '../../../Redux/profile-reducer';
+import {AddPostFormRedux, AddPostFormType} from './AddPostForm';
 
 type MyPostsPropsType = {
     profilePage: ProfilePageType
-    newPostText: string
-    addPost: () => void
-    onPostChange: (newTextValue: string) => void
+    addPost: (newPost: string) => void
 }
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-    const {onPostChange, addPost, profilePage, newPostText} = props
+    const {
+        addPost,
+        profilePage,
+    } = props
 
     const postsElement = profilePage.posts.map((p) => <Post
         key={p.id}
@@ -19,28 +21,14 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         likesCount={p.likesCount}
     />)
 
-    const onAddPost = () => addPost()
 
-
-    const onChangeTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const newTextValue = e.currentTarget.value
-        onPostChange(newTextValue)
-    }
-
+    const addNewPost = (formData: AddPostFormType) => addPost(formData.newPost)
 
     return (
         <>
             <div className={style.postsBlock}>
-                My posts
-                <div>
-                    <div>
-                        <textarea onChange={onChangeTextAreaHandler}
-                                  value={newPostText}/>
-                    </div>
-                    <div>
-                        <button onClick={onAddPost}>Add post</button>
-                    </div>
-                </div>
+                <h3>My posts</h3>
+                <AddPostFormRedux onSubmit={addNewPost}/>
             </div>
             <div className={style.posts}>
                 {postsElement}
