@@ -4,7 +4,7 @@ import React from 'react';
 
 
 type DialogListType = {
-    id: number
+    id: string
     name: string
 }
 
