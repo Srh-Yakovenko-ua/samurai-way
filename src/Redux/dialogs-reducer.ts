@@ -1,63 +1,57 @@
+import {nanoid} from 'nanoid';
+
 export type dialogsReducersActionType =
     | ReturnType<typeof sendMessageAC>
-    | ReturnType<typeof updateNewMessageBodyAC>
+
 export type MessagesType = {
-    id: number
+    id: string
     message: string
 }
 export type DialogsType = {
-    id: number
+    id: string
     name: string
 }
 export type DialogsPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
-    newMessageText: string
+
 }
 
-const NEW_MESSAGE_TEXT = 'NEW_MESSAGE_TEXT_BODY'
+
 const SEND_MESSAGE = 'SEND_MESSAGE'
 const initialState = {
     dialogs: [
-        {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Andrey'},
-        {id: 3, name: 'Sveta'},
-        {id: 4, name: 'Sasha'},
-        {id: 5, name: 'Viktor'},
-        {id: 6, name: 'Valera'},
+        {id: nanoid(), name: 'Dimych'},
+        {id: nanoid(), name: 'Andrey'},
+        {id: nanoid(), name: 'Sveta'},
+        {id: nanoid(), name: 'Sasha'},
+        {id: nanoid(), name: 'Viktor'},
+        {id: nanoid(), name: 'Valera'},
     ],
     messages: [
-        {id: 1, message: 'Hello'},
-        {id: 2, message: 'IT-LEARN'},
-        {id: 3, message: 'YO'},
-        {id: 4, message: 'YO'},
-        {id: 5, message: 'YO'},
-        {id: 6, message: 'YO'},
+        {id: nanoid(), message: 'Hello'},
+        {id: nanoid(), message: 'IT-LEARN'},
+        {id: nanoid(), message: 'YO'},
+        {id: nanoid(), message: 'YO'},
+        {id: nanoid(), message: 'YO'},
+        {id: nanoid(), message: 'YO'},
     ],
-    newMessageText: ''
+
 }
 
-export const sendMessageAC = () => ({
-        type: SEND_MESSAGE
+export const sendMessageAC = (newMessageBody : string) => ({
+        type: SEND_MESSAGE,
+        newMessageBody
     } as const
 )
-export const updateNewMessageBodyAC = (bodyText: string) => ({
-        type: NEW_MESSAGE_TEXT,
-        body: bodyText
-    } as const
-)
+
 
 
 export const dialogsReducers = (state: DialogsPageType = initialState, action: dialogsReducersActionType): DialogsPageType => {
-
     switch (action.type) {
-        case NEW_MESSAGE_TEXT:
-            return {...state, newMessageText: action.body}
         case SEND_MESSAGE:
-            const newMessages = {id: 7, message: state.newMessageText}
-            const copyState = {...state, messages: [...state.messages, newMessages]}
-            copyState.newMessageText = '';
-            return copyState
+            const newMessages = {id: nanoid(), message: action.newMessageBody}
+            return {...state, messages: [...state.messages, newMessages]}
         default : {
             return state
         }
