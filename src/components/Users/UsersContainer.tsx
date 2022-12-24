@@ -9,7 +9,7 @@ import {
     usersType
 } from '../../Redux/users-reducer';
 import {Users} from './Users';
-import {Preloader} from '../common/Preloader/Preloader';
+import {Preloader} from '../../common/Preloader/Preloader';
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 
@@ -42,13 +42,9 @@ class UsersContainer extends React.Component<UsersContainerType> {
         getUsers(pageNumber, pageSize)
     }
 
-    followUser = (userID: number) => {
-        this.props.followUser(userID)
-    }
+    followUser = (userID: number) => this.props.followUser(userID)
+    unFollowUser = (userID: number) => this.props.unFollowUser(userID)
 
-    unFollowUser = (userID: number) => {
-        this.props.unFollowUser(userID)
-    }
 
     render = () => {
         const {totalUsersCount, pageSize, currentPage, users, isFetching, followingInProgress} = this.props;

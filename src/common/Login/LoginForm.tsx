@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {Input} from '../FormsControls/FormsControls';
-import {requiredFiled} from '../../../utils/validators/validators';
+import {requiredFiled} from '../../utils/validators/validators';
 
 
 export interface FormDataType {

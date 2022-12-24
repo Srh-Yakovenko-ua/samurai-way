@@ -1,7 +1,7 @@
 import React from 'react';
-import preloader from '../../../assets/images/preloader.svg';
+import preloader from '../../assets/images/preloader.svg';
 
-const Preloader: React.FC<any> = (props) => {
+const Preloader = () => {
     const stylePreloader = {backgroundColor: 'white'};
 
     return (

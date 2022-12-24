@@ -24,6 +24,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     const addNewPost = (formData: AddPostFormType) => addPost(formData.newPost)
 
+
     return (
         <>
             <div className={style.postsBlock}>

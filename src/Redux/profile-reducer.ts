@@ -96,7 +96,7 @@ export const updateStatusProfileThunkCreator = (newStatus: string) => (dispatch:
 }
 
 
-export const AddPostAC = (newPost : string) => ({
+export const AddPostAC = (newPost: string) => ({
         type: ADD_POST,
         newPost,
     } as const

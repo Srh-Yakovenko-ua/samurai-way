@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLengthCreator, requiredFiled} from '../../utils/validators/validators';
-import {Textarea} from '../common/FormsControls/FormsControls';
+import {Textarea} from '../../common/FormsControls/FormsControls';
 
 export interface AddMessageFormType {newMessageBody: string}
 const maxLength = maxLengthCreator(25)
