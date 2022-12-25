@@ -5,10 +5,11 @@ import {NavLink} from 'react-router-dom';
 type HeaderPropsType = {
     isAuth: boolean
     login: string | null
+    authLogout : () => void
 }
 
 export const Header: React.FC<HeaderPropsType> = (props) => {
-    const {isAuth, login} = props;
+    const {isAuth, login , authLogout} = props;
 
 
     return (
@@ -19,7 +20,12 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
 
 
             <div className={style.loginBlock}>
-                {isAuth ? login : <NavLink to={'/login'}>Login</NavLink>}
+                {isAuth ?
+                    <div>
+                        <div>{login}</div>
+                        <button className={style.logout} onClick={authLogout}>logout</button>
+                    </div>
+                    : <NavLink to={'/login'}>Login</NavLink>}
             </div>
 
         </header>
