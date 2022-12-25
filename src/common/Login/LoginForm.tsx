@@ -5,9 +5,9 @@ import {requiredFiled} from '../../utils/validators/validators';
 
 
 export interface FormDataType {
-    login: string
+    email: string
     password: string
-    checkbox: boolean
+    rememberMe: boolean
 }
 
 const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
@@ -16,13 +16,13 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
         <form onSubmit={handleSubmit}>
             <div>
                 <Field type="text"
-                       name="login"
-                       placeholder="Login"
+                       name="email"
+                       placeholder="email"
                        validate={[requiredFiled]}
                        component={Input}/>
             </div>
             <div>
-                <Field type="text"
+                <Field type="password"
                        name="password"
                        placeholder="password"
                        validate={[requiredFiled]}
@@ -30,7 +30,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
             </div>
             <div>
                 <Field type="checkbox"
-                       name="remember me"
+                       name="rememberMe"
                        component={Input}/> remember me
             </div>
             <div>
