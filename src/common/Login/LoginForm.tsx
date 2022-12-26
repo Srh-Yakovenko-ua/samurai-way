@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {Input} from '../FormsControls/FormsControls';
 import {requiredFiled} from '../../utils/validators/validators';
-
+import style from './../FormsControls/FormsControls.module.css'
 
 export interface FormDataType {
     email: string
@@ -11,7 +11,7 @@ export interface FormDataType {
 }
 
 const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
-    const {handleSubmit} = props  // приходит с HOC
+    const {handleSubmit, error} = props  // приходит с HOC
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -33,6 +33,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
                        name="rememberMe"
                        component={Input}/> remember me
             </div>
+            {error && <div className={style.formSummaryError}>{error}</div>}
             <div>
                 <button>Login</button>
             </div>

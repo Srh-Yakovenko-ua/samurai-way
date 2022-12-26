@@ -14,3 +14,23 @@
 .loginBlock a {
     color: white;
 }
+
+.logout {
+
+    background: #0066CC;
+    border-radius: 10px;
+    border: none;
+
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #FFFFFF;
+}
+
+.logout:hover {
+    color: #0066CC;
+    background: #FFFFFF;
+}
