@@ -34,7 +34,6 @@ const Users: React.FC<UsersPropsType> = (props) => {
                                                         onClick={() => onPageChanged(p)}
                                                         className={currentPage === p ? styles.selectedPage : ''}>{p}</span>)
 
-
     return (
         <div>
             <div>
