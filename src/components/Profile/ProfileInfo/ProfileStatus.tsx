@@ -1,71 +1,58 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 
 interface ProfileStatusType {
     status: string
     updateProfileStatus: (newStatus: string) => void
 }
 
-interface ProfileStatusStateType {
-    editMode: boolean
-    newStatus: string
-}
 
-export class ProfileStatus extends React.Component<ProfileStatusType, ProfileStatusStateType> {
-    state = {
-        editMode: false,
-        newStatus: this.props.status,
-    }
+export const ProfileStatus: React.FC<ProfileStatusType> = ({
+                                                               status,
+                                                               updateProfileStatus
+                                                           }) => {
+    const [isEditMode, setIsEditMode] = useState(false)
+    const [newStatus, setNewStatus] = useState(status)
 
-    onChangeActiveEditeMode = () => this.setState({editMode: true})
-    disableEditMode = () => {
-        this.setState({editMode: false})
-        this.props.updateProfileStatus(this.state.newStatus)
+    const editMode = () => {
+        setIsEditMode(!isEditMode)
     }
-
-    onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({newStatus: e.currentTarget.value})
+    const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewStatus(e.currentTarget.value)
     }
-    onKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyUpChangeStatus = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            this.setState({editMode: false})
-            this.props.updateProfileStatus(this.state.newStatus)
+            setIsEditMode(!isEditMode)
+            updateProfileStatus(newStatus)
         }
     }
-
-    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<ProfileStatusStateType>) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({newStatus: this.props.status})
-        }
+    const onBlurChangeStatus = () => {
+        setIsEditMode(!isEditMode)
+        updateProfileStatus(newStatus)
     }
 
+    useEffect(() => {
+        setNewStatus(status)
+    }, [status])
+    return (
+        <>
+            {!isEditMode && <div>
+                           <span onClick={editMode}>
+                                My Status : {status ? status : 'NOT STATUS'}
+                            </span>
+                </div>
+            }
 
-    render() {
-        const {editMode, newStatus} = this.state;
-        const {status} = this.props;
-
-        return (
-            <>
-                {!editMode ?
-                    <div>
-                        <span onClick={this.onChangeActiveEditeMode}>
-                            My Status : {status ? status : 'NOT STATUS'}
-                        </span>
-                    </div>
-                    :
-                    <div>
-                        <input type="text"
-                               value={newStatus}
-                               onBlur={this.disableEditMode}
-                               onChange={this.onChangeStatus}
-                               onKeyUp={this.onKeyUpHandler}
-                               placeholder="change status"
-                               autoFocus
-                        />
-                    </div>}
-
-
+            {isEditMode && <div>
+                    <input type="text"
+                           value={newStatus}
+                           onBlur={onBlurChangeStatus}
+                           onChange={changeStatus}
+                           onKeyUp={onKeyUpChangeStatus}
+                           placeholder="change status"
+                           autoFocus/>
+                </div>}
             </>
-        );
-    }
+    )
+
 }
 
